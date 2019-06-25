@@ -63,15 +63,6 @@ pix_per_inch=sqrt(width**2+length**2)/diagonal
 pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 
 
-#Select the file with the trials (python gen_input_dist.py 'Subject Name') the file is going to be in a folder with the name of the subject.
-stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
-stims = pd.read_csv(stims_file, sep=" ") 
-stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
-
-#list to append the results
-OUTPUT=zeros((len(stimList), 16 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, onset_resp, resp_time 
-
-
 #Functions that will be used
 def inch2cm(inches):
     return inches*2.54
@@ -108,6 +99,17 @@ def circ_dist(a1,a2):
 
 
 
+
+#Select the file with the trials (python gen_input_dist.py 'Subject Name') the file is going to be in a folder with the name of the subject.
+stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
+stims = pd.read_csv(stims_file, sep=" ") 
+stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
+
+#list to append the results
+OUTPUT=zeros((len(stimList), 16 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, onset_resp, resp_time 
+
+
+
 #convert cm distane in pixels
 mouse_fix_min=int ( cm2pix(float(mouse_fix_min)) )
 mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
@@ -127,8 +129,6 @@ circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos
 #################
 ##### START OF THE TASK
 win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
-
-
 
 
 for i in range(0,len(stimList)):
