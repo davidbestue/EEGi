@@ -12,13 +12,14 @@ Created on Mon Nov 07 12:56:14 2016
 
 from psychopy import visual, core, event, gui
 import easygui
-from math import cos, sin, radians, sqrt, degrees, asin, acos
+from math import cos, sin, radians, sqrt, degrees, asin, acos, atan2, pi
 from numpy import zeros, vstack, array, savetxt, mean, std, arange
 import os
 import sys
 from pickle import dump
 from random import choice
 import pandas as pd
+
 
 
 #Place where you want to save the results (set your path) depending on the computer
@@ -80,14 +81,18 @@ def circ_dist(a1,a2):
     return min(options)
 
 
+def getAngle(v):
+    a=atan2(v[1],v[0])
+    return 180*a/pi
+
 #Select the file with the trials (python gen_input_dist.py 'Subject Name') the file is going to be in a folder with the name of the subject.
 stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
 stims = pd.read_csv(stims_file, sep=" ") 
 stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
-stimList =stimList.iloc[:3, :]
+stimList =stimList.iloc[:4, :]
 
 #list to append the results
-OUTPUT=zeros((len(stimList), 19 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, time_delay1, time_delay2, onset_resp, resp_time, reaction_time 
+OUTPUT=[] #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, time_delay1, time_delay2, onset_resp, resp_time, reaction_time 
 
 
 mouse_fix_min=-2.5 
@@ -127,7 +132,12 @@ def fixation_circle():
 
 
 
+TIME = core.Clock();
+TIME.reset();
+
 for i in range(0,len(stimList)):
+    
+    time_start_trial=TIME.getTime()
     #take a new trial everytime and restore the features of fixation  
     trial=stimList.iloc[i]            
     #take the relevant info from the trial (Target=T, Non-Targuet=NT, Distractor=Dist)
@@ -137,6 +147,7 @@ for i in range(0,len(stimList)):
     delay2=trial['delay2']
     distance_T_dist=trial['dist']
     order=trial['order']
+    cw_ccw=trial['cw_ccw']
     
     #Convert the (cm, degrees) to (x_cm. y_cm) and change it to pixels with the function cm2pix. We round everything up to three decimals
     X_T=round(cm2pix(radius*cos(radians(angle_target))), decimals)
@@ -145,10 +156,8 @@ for i in range(0,len(stimList)):
     Y_Dist=round(cm2pix(radius*sin(radians(angle_Dist))), decimals)
     
     ############# Start the time
-    TIME = core.Clock();
-    TIME.reset();
-    
     #Start the trial when the mouse is fixated 
+    
     MOUSE=event.Mouse(win=win, visible=True)
     pos_mouse=MOUSE.getPos();
     x_mouse=pos_mouse[0]
@@ -207,6 +216,7 @@ for i in range(0,len(stimList)):
     #############################
     ############################# DELAY 1
     ############################# 
+    start_delay1= TIME.getTime()
     fixation_circle();  
     win.flip()
     core.wait(float(delay1))    
@@ -234,6 +244,7 @@ for i in range(0,len(stimList)):
     #############################
     ############################# DELAY 2
     ############################# 
+    start_delay2= TIME.getTime()
     fixation_circle();  
     win.flip()
     core.wait(float(delay2)) 
@@ -257,6 +268,35 @@ for i in range(0,len(stimList)):
         pos=MOUSE.getPos()
         reaction_time = response_time - start_response
         win.flip()
+    
+    #Angle response 
+    angle_save = getAngle(pos)
+    if angle_save<0:
+        angle_save = 360+ angle_save
+    
+    A_R = angle_save
+    
+    ## Angle error
+    A_err = angle_target - A_R
+    if A_err < -180:
+        A_err=angle_target - A_R  + 360
+    if A_err > 180:
+        A_err=angle_target - A_R - 360
+    
+    ## Save output    
+    OUTPUT.append([angle_target, angle_Dist, delay1, delay2, distance_T_dist, order, cw_ccw, A_R, A_err, reaction_time,
+          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time])
+          
+          
+
+
+
+
+win.close()
+
+
+    
+    
     
     
     
@@ -592,7 +632,7 @@ win.close()
     
     #Append each trial 
     RESPONSE_MOVEMENT.append(movement)
-    OUTPUT[i,:]=[trial['type'], trial['delay1'], trial['delay2'], trial['Target'][1], trial['NT1'][1], trial['NT2'][1], trial['Distractor'][1], trial['Distractor_NT1'][1], trial['Distractor_NT2'][1],
+    OUTPUT.append([trial['type'], trial['delay1'], trial['delay2'], trial['Target'][1], trial['NT1'][1], trial['NT2'][1], trial['Distractor'][1], trial['Distractor_NT1'][1], trial['Distractor_NT2'][1],
            distance_T_dist, cue, order, orient, horiz_vertical, A_response, A_err, Abs_angle_error, Error_interference, trial['A_DC'], trial['A_DC_dist'], trial['Q_DC'], trial['A_DF'], 
            trial['A_DF_dist'], trial['Q_DF'], trial['A_DVF'], trial['Q_DVF'], trial['A_DVF_dist'],  trial['Q_DVF_dist'], trial_time, time_to_fixate, disp_time, presentation_att_cue_time,
            presentation_target_time, presentation_dist_time, presentation_probe_time, R_T] 
