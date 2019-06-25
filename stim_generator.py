@@ -39,7 +39,7 @@ for i in range(N):
 
 
 ##Column of delays
-presentation_period= 0.250 
+presentation_period= 0.350 
 delay1 = 1
 delay1 = [delay1 for i in range(int(N))] 
 

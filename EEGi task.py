@@ -21,18 +21,15 @@ from random import choice
 import pandas as pd
 
 
-
-#Place where you want to save the results (set your path) depending on the computer
-#ordenador=os.getcwd()
-#os.chdir('C:\\Users\\David\\Desktop' )
-
+root = os.getcwd()
     
 ## Name subject and session
 if __name__ == "__main__":
-    info = {'Subject':'Subject_1', 'session': '1'}
+    info = {'Subject':'Subject', 'session': '1'}
     infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
     if infoDlg.OK:
-        name, session =info['Subject', 'Session']
+        name = info['Subject']
+        session= info['session']
     if infoDlg.OK==False: core.quit() #user pressed cancel
 
 
@@ -289,6 +286,28 @@ for i in range(0,len(stimList)):
 
 
 win.close()
+
+
+df = pd.DataFrame(OUTPUT)
+index_columns=array(['type', 'delay1', 'delay2', 'T', 'NT1', 'NT2', 'Dist', 'Dist_NT1', 'Dist_NT2', 'distance_T_dist', 'cue', 'order',
+                     'orient', 'horiz_vertical', 'A_R', 'A_err', 'Abs_angle_error', 'Error_interference', 'A_DC', 'A_DC_dist', 'Q_DC', 'A_DF',
+                     'A_DF_dist', 'Q_DF', 'A_DVF', 'Q_DVF', 'A_DVF_dist', 'Q_DVF_dist', 'trial_time', 'time_to_fixate', 'disp_time', 
+                     'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'presentation_probe_time', 'R_T']) 
+
+
+df.columns = index_columns
+
+filename =  root + '/results/' + name + '_' + session + '.xlsx'
+
+df.to_excel(filename)
+
+
+
+
+
+
+file_name= str(current_directory)+'/'+ name + '_' + session
+
 
 ##Save the file
 index_columns=array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
@@ -675,22 +694,6 @@ win.close()
 
 
 
-
-##Save the file
-index_columns=array(['type', 'delay1', 'delay2', 'T', 'NT1', 'NT2', 'Dist', 'Dist_NT1', 'Dist_NT2', 'distance_T_dist', 'cue', 'order',
-                     'orient', 'horiz_vertical', 'A_R', 'A_err', 'Abs_angle_error', 'Error_interference', 'A_DC', 'A_DC_dist', 'Q_DC', 'A_DF',
-                     'A_DF_dist', 'Q_DF', 'A_DVF', 'Q_DVF', 'A_DVF_dist', 'Q_DVF_dist', 'trial_time', 'time_to_fixate', 'disp_time', 
-                     'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'presentation_probe_time', 'R_T']) 
-
-
-BEHAVIOR=vstack((index_columns, OUTPUT))
-
-
-#Save a txt for the behavior and a pikle for movements inside a folder with the name
-os.makedirs(name)
-current_directory=os.getcwd()
-
-new_directory= str(current_directory)+'/'+str(name)
 os.chdir(new_directory)
 
 savetxt(str(name)+'_beh_'+'.txt',  BEHAVIOR, fmt='{0: ^{1}}'.format("%s", 5))
