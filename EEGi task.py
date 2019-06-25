@@ -38,8 +38,8 @@ name=subject_name
 
 #Parameters
 radius= 8 
-presentation_period= 0.250 
-presentation_period_distractor= 0.250
+presentation_period= 0.350 
+presentation_period_distractor= 0.350
 presentation_period_cue=  0.500
 inter_trial_period= 0.5 
 size_stim= 1 
@@ -47,6 +47,7 @@ mouse_fix_min=-2.5
 mouse_fix_max=2.5 
 decimals=3 
 limit_time=3 
+pre_stim_period = 0.5
 
 #colors in rgb code
 grey=[0,0,0]
@@ -86,7 +87,7 @@ stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']]
 stimList =stimList.iloc[:3, :]
 
 #list to append the results
-OUTPUT=zeros((len(stimList), 16 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, onset_resp, resp_time 
+OUTPUT=zeros((len(stimList), 19 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, time_delay1, time_delay2, onset_resp, resp_time, reaction_time 
 
 
 mouse_fix_min=-2.5 
@@ -108,6 +109,14 @@ win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a 
 def fixation():
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
     fixation_cross.draw(); 
+    
+
+def fixation_response():
+    circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
+    circ.draw();
+    fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=yellow, units='pix', height=length/20)
+    fixation_cross.draw(); 
+
 
 
 def fixation_circle():
@@ -160,9 +169,7 @@ for i in range(0,len(stimList)):
     time_to_fixate=TIME.getTime() #time you need to fixate
     time_to_fixate=round(time_to_fixate, decimals)
     
-    #############################
-    ############################# #CUE PERIOD (commend this for the WM gratting scroll)
-    #############################    
+    #CUE PERIOD 
     presentation_att_cue_time= TIME.getTime()
     presentation_att_cue_time=round(presentation_att_cue_time, decimals)
     CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
@@ -170,13 +177,98 @@ for i in range(0,len(stimList)):
     win.flip(); 
     core.wait(float(presentation_period_cue))
     
+    # pre setim period
+    fixation_circle();
+    win.flip();    
+    core.wait(float(pre_stim_period))
+    
+    
+    #############################
+    ############################# PRESENTATION PERIOD 1
+    #############################       
+    if order==1:
+        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        presentation_target_time=round(presentation_target_time, decimals);
+        fixation_circle();        
+        target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
+        target.draw();
+        win.flip() 
+        core.wait(float(presentation_period))
+        
+    elif order==2:
+        presentation_dist_time= TIME.getTime()
+        presentation_dist_time=round(presentation_dist_time, decimals)   
+        fixation_circle();        
+        Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
+        Distractor.draw()   
+        win.flip()
+        core.wait(float(presentation_period))
+    
+    #############################
+    ############################# DELAY 1
+    ############################# 
+    fixation_circle();  
+    win.flip()
+    core.wait(float(delay1))    
+    #############################
+    ############################# PRESENTATION PERIOD 2
+    #############################       
+    if order==1:
+        presentation_dist_time= TIME.getTime()
+        presentation_dist_time=round(presentation_dist_time, decimals)   
+        fixation_circle();        
+        Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
+        Distractor.draw()   
+        win.flip()
+        core.wait(float(presentation_period))
+        
+    elif order==2:
+        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        presentation_target_time=round(presentation_target_time, decimals);
+        fixation_circle();        
+        target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
+        target.draw();
+        win.flip() 
+        core.wait(float(presentation_period))
+    
+    #############################
+    ############################# DELAY 2
+    ############################# 
+    fixation_circle();  
+    win.flip()
+    core.wait(float(delay2)) 
+    #############################
+    ############################# Response
+    ############################# 
+    MOUSE.setPos([0,0])
+    fixation_response(); 
+    MOUSE=event.Mouse(win=win, visible=True)
+    MOUSE.clickReset()
+    #reaction time
+    start_response = TIME.getTime()   
+    while MOUSE.getPressed()[0]==0:
+        fixation_response();
+        win.flip()
+        pass #wait for a button to be pressed
+    
+    if MOUSE.getPressed()[0]==1:
+        fixation_response();
+        response_time = TIME.getTime()
+        pos=MOUSE.getPos()
+        reaction_time = response_time - start_response
+        win.flip()
+    
+    
+    
     
     
     
 
 
 
-
+ 
+    
+    
 win.close()
 
 
