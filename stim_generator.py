@@ -48,11 +48,10 @@ o2_delay2= 3
 delay2 = [o1_delay2 for i in range(int(N/2))] +  [o2_delay2 for i in range(int(N/2))] 
 
 #Concatenate columns
-
 trials = np.vstack( [ order_column, targets, distractors, distances, cw_ccw_column, delay1, delay2, ])
 trials = trials.transpose() 
 
-trials_random=trials[np.random.permutation(trials.shape[0]), :]
+trials_random=trials[np.random.permutation(trials.shape[0]), :] ##shuffle the trials
 
 #Put a index for each column
 column_titles=np.array(['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2'])
