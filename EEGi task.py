@@ -18,6 +18,7 @@ import os
 import sys
 from pickle import dump
 from random import choice
+import pandas as pd
 
 
 #Place where you want to save the results (set your path) depending on the computer
@@ -88,6 +89,8 @@ stimList =stimList.iloc[:3, :]
 OUTPUT=zeros((len(stimList), 16 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, onset_resp, resp_time 
 
 
+mouse_fix_min=-2.5 
+mouse_fix_max=2.5 
 
 #convert cm distane in pixels
 mouse_fix_min=int ( cm2pix(float(mouse_fix_min)) )
@@ -103,9 +106,12 @@ win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a 
 
 
 
-def fixation_cross():
-    fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/10,  color=blck, units='pix', height=length/10)
-    fixation_cross.draw()   
+def fixation_circle():
+    circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
+    circ.draw();
+    fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
+    fixation_cross.draw(); 
+
 
 
 for i in range(0,len(stimList)):
@@ -116,7 +122,7 @@ for i in range(0,len(stimList)):
     angle_Dist=trial['A_dist']
     delay1=trial['delay1']
     delay2=trial['delay2']
-    distance_T_dist=trial['distance']
+    distance_T_dist=trial['dist']
     order=trial['order']
     
     #Convert the (cm, degrees) to (x_cm. y_cm) and change it to pixels with the function cm2pix. We round everything up to three decimals
@@ -126,51 +132,52 @@ for i in range(0,len(stimList)):
     X_Dist=round(cm2pix(radius*cos(radians(angle_Dist))), decimals)
     Y_Dist=round(cm2pix(radius*sin(radians(angle_Dist))), decimals)
     
-    X_NT1_Dist=round(cm2pix(radius*cos(radians(angle_NT1_Dist))), decimals)
-    Y_NT1_Dist=round(cm2pix(radius*sin(radians(angle_NT1_Dist))), decimals)
-    
-    X_NT2_Dist=round(cm2pix(radius*cos(radians(angle_NT2_Dist))), decimals)
-    Y_NT2_Dist=round(cm2pix(radius*sin(radians(angle_NT2_Dist))), decimals)
-    
-    #order (1 or 2) and quadrant
-    order=trial['order']
-    quadrant=trial['quadrant_target']
-    axis_response=trial['axis_response']
-    horiz_vertical=trial['axis_response']
-    
     ############# Start the display of the task
     
     #############################
     ############################# ITI Inter-trial-interval
     #############################
-    win.flip()
-    core.wait(inter_trial_period)
+    fixation_circle();
+    win.flip();
+    core.wait(inter_trial_period);
     
     # Start the display of elements
     #time (start the time)
-    TIME = core.Clock()
-    TIME.reset()
+    TIME = core.Clock();
+    TIME.reset();
         
     #Start the trial whe the mouse is fixated 
     MOUSE=event.Mouse(win=win, visible=True)
-    pos_mouse=MOUSE.getPos()
+    pos_mouse=MOUSE.getPos();
     x_mouse=pos_mouse[0]
     y_mouse=pos_mouse[1]
     while not x_mouse in range(mouse_fix_min, mouse_fix_max) or y_mouse not in range(mouse_fix_min, mouse_fix_max): 
-        pos_mouse=MOUSE.getPos()
+        pos_mouse=MOUSE.getPos();
         x_mouse=pos_mouse[0]
         y_mouse=pos_mouse[1]
-        fixation()   
-        win.flip()
+        fixation_circle(); 
+        win.flip();
     else:
         MOUSE=event.Mouse(win=win, visible=False)
-        fixation()  
-        win.flip()
+        fixation_circle();
+        win.flip();
                
     
     #Start the display time when the subject is fixated
     time_to_fixate=TIME.getTime() #time you need to fixate
     time_to_fixate=round(time_to_fixate, decimals)
+    
+    
+
+
+
+
+win.close()
+
+
+
+
+
     
     display_time = core.Clock()
     display_time.reset()
