@@ -29,13 +29,12 @@ import pandas as pd
     
 ## Name subject and session
 if __name__ == "__main__":
-    info = {'Subject':'Subject_1'}
-    infoDlg = gui.DlgFromDict(dictionary=info, title='WM experiment')
+    info = {'Subject':'Subject_1', 'session': '1'}
+    infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
     if infoDlg.OK:
-        subject_name=info['Subject']
+        name, session =info['Subject', 'Session']
     if infoDlg.OK==False: core.quit() #user pressed cancel
 
-name=subject_name
 
 #Parameters
 radius= 8 
@@ -282,18 +281,19 @@ for i in range(0,len(stimList)):
     
     ## Save output    
     OUTPUT.append([angle_target, angle_Dist, delay1, delay2, distance_T_dist, order, cw_ccw, A_R, A_err, reaction_time,
-          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time, name])
+          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time,
+          name, session])
           
           
-
 
 
 
 win.close()
 
 ##Save the file
-index_columns=array([angle_target, angle_Dist, delay1, delay2, distance_T_dist, order, cw_ccw, A_R, A_err, reaction_time,
-          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time, name]) 
+index_columns=array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
+          'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'start_delay1', 'start_delay2', 'start_response', 'response_time',
+          'name', 'session']) 
 
 
 BEHAVIOR=vstack((index_columns, OUTPUT))
