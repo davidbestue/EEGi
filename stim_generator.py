@@ -54,13 +54,13 @@ trials = trials.transpose()
 trials_random=trials[np.random.permutation(trials.shape[0]), :] ##shuffle the trials
 
 #Put a index for each column
-column_titles=np.array(['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2'])
+column_titles=np.array(['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']) #column names
 column_titles=np.reshape(column_titles, (1,len(column_titles)))
 trials_sess=np.concatenate((column_titles, trials_random))
 
 # Select the path you want to save the file and save it
-os.chdir('stims')
-np.savetxt('trials.txt',  trials_sess, fmt='{0: ^{1}}'.format("%s", 5))
+os.chdir('stims') #save in the directory stims (in the same path)
+np.savetxt('trials.txt',  trials_sess, fmt='{0: ^{1}}'.format("%s", 5)) #all subjects will use exactly the same set of stims.
 
 
 
