@@ -105,6 +105,10 @@ mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
 
 
+def fixation():
+    fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
+    fixation_cross.draw(); 
+
 
 def fixation_circle():
     circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
@@ -128,25 +132,14 @@ for i in range(0,len(stimList)):
     #Convert the (cm, degrees) to (x_cm. y_cm) and change it to pixels with the function cm2pix. We round everything up to three decimals
     X_T=round(cm2pix(radius*cos(radians(angle_target))), decimals)
     Y_T=round(cm2pix(radius*sin(radians(angle_target))), decimals)
-    
     X_Dist=round(cm2pix(radius*cos(radians(angle_Dist))), decimals)
     Y_Dist=round(cm2pix(radius*sin(radians(angle_Dist))), decimals)
     
-    ############# Start the display of the task
-    
-    #############################
-    ############################# ITI Inter-trial-interval
-    #############################
-    fixation_circle();
-    win.flip();
-    core.wait(inter_trial_period);
-    
-    # Start the display of elements
-    #time (start the time)
+    ############# Start the time
     TIME = core.Clock();
     TIME.reset();
-        
-    #Start the trial whe the mouse is fixated 
+    
+    #Start the trial when the mouse is fixated 
     MOUSE=event.Mouse(win=win, visible=True)
     pos_mouse=MOUSE.getPos();
     x_mouse=pos_mouse[0]
@@ -155,17 +148,29 @@ for i in range(0,len(stimList)):
         pos_mouse=MOUSE.getPos();
         x_mouse=pos_mouse[0]
         y_mouse=pos_mouse[1]
-        fixation_circle(); 
+        fixation(); 
         win.flip();
     else:
         MOUSE=event.Mouse(win=win, visible=False)
-        fixation_circle();
+        fixation();
         win.flip();
                
     
     #Start the display time when the subject is fixated
     time_to_fixate=TIME.getTime() #time you need to fixate
     time_to_fixate=round(time_to_fixate, decimals)
+    
+    #############################
+    ############################# #CUE PERIOD (commend this for the WM gratting scroll)
+    #############################    
+    presentation_att_cue_time= TIME.getTime()
+    presentation_att_cue_time=round(presentation_att_cue_time, decimals)
+    CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
+    CUE.draw();
+    win.flip(); 
+    core.wait(float(presentation_period_cue))
+    
+    
     
     
 
