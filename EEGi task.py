@@ -102,9 +102,6 @@ mouse_fix_max=2.5
 mouse_fix_min=int ( cm2pix(float(mouse_fix_min)) )
 mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 
-#Round and create an int (as it is going to be in a range function where float are not admitted)
-
-
 
 #################
 ##### START OF THE TASK
@@ -285,7 +282,7 @@ for i in range(0,len(stimList)):
     
     ## Save output    
     OUTPUT.append([angle_target, angle_Dist, delay1, delay2, distance_T_dist, order, cw_ccw, A_R, A_err, reaction_time,
-          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time])
+          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time, name])
           
           
 
@@ -293,6 +290,24 @@ for i in range(0,len(stimList)):
 
 
 win.close()
+
+##Save the file
+index_columns=array([angle_target, angle_Dist, delay1, delay2, distance_T_dist, order, cw_ccw, A_R, A_err, reaction_time,
+          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time, name]) 
+
+
+BEHAVIOR=vstack((index_columns, OUTPUT))
+
+
+#Save a txt for the behavior and a pikle for movements inside a folder with the name
+os.makedirs(name)
+current_directory=os.getcwd()
+
+new_directory= str(current_directory)+'/'+str(name)
+os.chdir(new_directory)
+
+savetxt(str(name)+'_beh_'+'.txt',  BEHAVIOR, fmt='{0: ^{1}}'.format("%s", 5))
+dump( RESPONSE_MOVEMENT, open( str(name)+'_movements_'+'.p', 'wb' ) )
 
 
     
