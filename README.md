@@ -1,6 +1,6 @@
 ## EEGi
 
-##### ***Stim generatot***
+##### ***Stim generator***
 
 ##### ***Task***
 
