@@ -64,28 +64,8 @@ pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 
 
 #Functions that will be used
-def inch2cm(inches):
-    return inches*2.54
-
-
-def cm2inch(cm):
-    return cm/2.54  
-
-
 def cm2pix(cm):
     return  pix_per_cm * cm  
-
-
-def pix2cm(pixels):
-    return pixels*(1/pix_per_cm)
-
-
-
-def deg_rad2x_y(deg, radius):
-    x=round(radius*cos(radians(deg)),decimals)
-    y=round(radius*sin(radians(deg)),decimals)
-    return (x,y)
-
 
 
 def circ_dist(a1,a2):
@@ -95,9 +75,6 @@ def circ_dist(a1,a2):
     op2=min(angs)+(360-max(angs))
     options=[op1,op2]
     return min(options)
-
-
-
 
 
 #Select the file with the trials (python gen_input_dist.py 'Subject Name') the file is going to be in a folder with the name of the subject.
@@ -145,12 +122,6 @@ for i in range(0,len(stimList)):
     #Convert the (cm, degrees) to (x_cm. y_cm) and change it to pixels with the function cm2pix. We round everything up to three decimals
     X_T=round(cm2pix(radius*cos(radians(angle_target))), decimals)
     Y_T=round(cm2pix(radius*sin(radians(angle_target))), decimals)
-    
-    X_NT1=round(cm2pix(radius*cos(radians(angle_NT1))), decimals)
-    Y_NT1=round(cm2pix(radius*sin(radians(angle_NT1))), decimals)
-    
-    X_NT2=round(cm2pix(radius*cos(radians(angle_NT2))), decimals)
-    Y_NT2=round(cm2pix(radius*sin(radians(angle_NT2))), decimals)
     
     X_Dist=round(cm2pix(radius*cos(radians(angle_Dist))), decimals)
     Y_Dist=round(cm2pix(radius*sin(radians(angle_Dist))), decimals)
