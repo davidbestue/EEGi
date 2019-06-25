@@ -21,8 +21,8 @@ from random import choice
 
 
 #Place where you want to save the results (set your path) depending on the computer
-ordenador=os.getcwd()
-os.chdir('C:\\Users\\David\\Desktop' )
+#ordenador=os.getcwd()
+#os.chdir('C:\\Users\\David\\Desktop' )
 
     
 ## Name subject and session
@@ -65,21 +65,8 @@ pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 
 #Select the file with the trials (python gen_input_dist.py 'Subject Name') the file is going to be in a folder with the name of the subject.
 stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
-stim_input=open(stims_file,'r')
-lines=stim_input.readlines()[1:]
-stimList = []
-for line in lines: #Take the info of the file to create a dictionary with all the trials and its values labeled
-    line = line.split()
-    order=line[0]  
-    A_T=line[1]
-    A_dist=line[2]
-    distance=line[3]
-    cw_ccw=line[4]
-    delay1 = line[5]
-    delay2 = line[6]
-    stimList.append({'order':float(order), 'A_T':float(A_T),  'A_dist':float(A_dist), 'distance':float(distance), 'cw_ccw':cw_ccw, 'delay1':float(delay1), 'delay2': float(delay2)}) 
-
-stim_input.close() # Close the stim file
+stims = pd.read_csv(stims_file, sep=" ") 
+stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
 
 #list to append the results
 OUTPUT=zeros((len(stimList), 16 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, onset_resp, resp_time 
@@ -128,8 +115,6 @@ mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 #Round and create an int (as it is going to be in a range function where float are not admitted)
 
 
-
-
 def fixation_cross():
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/10,  color=blck, units='pix', height=length/10)
     fixation_cross.draw()   
@@ -137,8 +122,6 @@ def fixation_cross():
 
 #circle
 circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
-
-
 
 
 #################
@@ -150,23 +133,14 @@ win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a 
 
 for i in range(0,len(stimList)):
     #take a new trial everytime and restore the features of fixation  
-    movement=[]
-    trial=stimList[i]    
-    fixation=[f1_black,f2_black,f3_black,f4_black]
-    
+    trial=stimList.iloc[i]            
     #take the relevant info from the trial (Target=T, Non-Targuet=NT, Distractor=Dist)
-    angle_target=trial['Target'][1]
-    angle_NT1=trial['NT1'][1]
-    angle_NT2=trial['NT2'][1]
-    angle_Dist=trial['Distractor'][1]
-    angle_NT1_Dist=trial['Distractor_NT1'][1]
-    angle_NT2_Dist=trial['Distractor_NT2'][1]
-    
+    angle_target=trial['A_T']
+    angle_Dist=trial['A_dist']
     delay1=trial['delay1']
     delay2=trial['delay2']
-    
-    distance_T_dist=trial['distance_T_dist']
-    ttype=trial['type']
+    distance_T_dist=trial['distance']
+    order=trial['order']
     
     #Convert the (cm, degrees) to (x_cm. y_cm) and change it to pixels with the function cm2pix. We round everything up to three decimals
     X_T=round(cm2pix(radius*cos(radians(angle_target))), decimals)
