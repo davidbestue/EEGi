@@ -53,6 +53,7 @@ black=[-1,-1,-1]
 yellow=[1, 1, 0]
 
 #Screen parameters. This parameters must be ajusted according to your screen features.
+screen = [1920, 1080]
 width, length = [1920, 1080]
 diagonal= 22.05    
 
@@ -81,6 +82,7 @@ def circ_dist(a1,a2):
 stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
 stims = pd.read_csv(stims_file, sep=" ") 
 stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
+stimList =stimList.iloc[:3, :]
 
 #list to append the results
 OUTPUT=zeros((len(stimList), 16 )) #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, onset_resp, resp_time 
@@ -94,18 +96,16 @@ mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 #Round and create an int (as it is going to be in a range function where float are not admitted)
 
 
-def fixation_cross():
-    fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/10,  color=blck, units='pix', height=length/10)
-    fixation_cross.draw()   
-
-
-#circle
-circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
-
 
 #################
 ##### START OF THE TASK
 win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
+
+
+
+def fixation_cross():
+    fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/10,  color=blck, units='pix', height=length/10)
+    fixation_cross.draw()   
 
 
 for i in range(0,len(stimList)):
@@ -160,19 +160,11 @@ for i in range(0,len(stimList)):
         pos_mouse=MOUSE.getPos()
         x_mouse=pos_mouse[0]
         y_mouse=pos_mouse[1]
-        circ.draw()
-        f1_black.draw()
-        f2_black.draw()
-        f3_black.draw()
-        f4_black.draw()        
+        fixation()   
         win.flip()
     else:
         MOUSE=event.Mouse(win=win, visible=False)
-        circ.draw()
-        f1_black.draw()
-        f2_black.draw()
-        f3_black.draw()
-        f4_black.draw()  
+        fixation()  
         win.flip()
                
     
