@@ -1,0 +1,7 @@
+## EEGi
+
+##### ***Stim generatot***
+
+##### ***Task***
+
+
