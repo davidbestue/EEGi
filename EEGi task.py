@@ -206,7 +206,7 @@ for i in range(0,len(stimList)):
         ######################################################################################################################## Presentation target! switch_diode()
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         presentation_target_time=round(presentation_target_time, decimals);
-        fixation();        
+        fixation();  #no circle during presentation (EEG problems?)        
         target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
         target.draw();
         win.flip() 
@@ -216,7 +216,7 @@ for i in range(0,len(stimList)):
         ######################################################################################################################## Presentation distractor! switch_diode()
         presentation_dist_time= TIME.getTime()
         presentation_dist_time=round(presentation_dist_time, decimals)   
-        fixation();        
+        fixation();  #no circle during presentation (EEG problems?)        
         Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
         Distractor.draw()   
         win.flip()
@@ -227,7 +227,7 @@ for i in range(0,len(stimList)):
     ############################# 
     ######################################################################################################################## Start delsy1! switch_diode()
     start_delay1= TIME.getTime()
-    fixation();  
+    fixation();  #no circle during delay (EEG problems?)   
     win.flip()
     core.wait(float(delay1))    
     #############################
@@ -258,7 +258,7 @@ for i in range(0,len(stimList)):
     ############################# 
     ######################################################################################################################## Start delay2! switch_diode()
     start_delay2= TIME.getTime()
-    fixation(); 
+    fixation(); #no circle during delay (EEG problems?)  
     win.flip()
     core.wait(float(delay2)) 
     #############################
