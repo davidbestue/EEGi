@@ -262,11 +262,11 @@ for i in range(0,len(stimList)):
     win.flip()
     core.wait(float(delay2)) 
     #############################
-    ############################# Response
+    ############################# Response by clicking
     ############################# 
     MOUSE.setPos([0,0]) #force the mouse to be at 0 by the time of the response (anticipation not helpful)
-    fixation_response(); 
-    MOUSE=event.Mouse(win=win, visible=True)
+    fixation_response(); #the see the circle (increase presition?)
+    MOUSE=event.Mouse(win=win, visible=True) 
     MOUSE.clickReset()
     #reaction time
     ######################################################################################################################## Start Response! switch_diode()
