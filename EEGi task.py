@@ -313,10 +313,8 @@ core.wait(2) #display it for 2 seconds
 win.close() #close the windows
 
 
-
-
 #Save output
-df = pd.DataFrame(OUTPUT)
+df = pd.DataFrame(OUTPUT) #create a dataframe (iff you Escape, you can still run this last part)
 index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
           'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'start_delay1', 'start_delay2', 'start_response', 'response_time',
           'name', 'session']) 
