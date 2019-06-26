@@ -309,8 +309,7 @@ for i in range(0,len(stimList)):
 Final_text=visual.TextStim(win=win, text='Thank you!', pos=[-3,0], color=[1,1,1], units='pix', height=100) ##final text    
 Final_text.draw()
 win.flip()
-core.wait(2)
-win.flip()
+core.wait(2) #display it for 2 seconds
 win.close() #close the windows
 
 
