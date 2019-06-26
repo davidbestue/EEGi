@@ -70,7 +70,7 @@ pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 
 
 def quit_task():
-    if event.getKeys("escape"): win.close() 
+    if event.getKeys("Esc"): win.close() 
     
 
 def cm2pix(cm):
