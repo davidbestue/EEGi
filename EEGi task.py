@@ -154,8 +154,7 @@ for i in range(0,len(stimList)):
     Y_Dist=round(cm2pix(radius*sin(radians(angle_Dist))), decimals)
     
     ############# Start the time
-    #Start the trial when the mouse is fixated 
-    
+    #Start the trial when the mouse is fixated     
     MOUSE=event.Mouse(win=win, visible=True)
     pos_mouse=MOUSE.getPos();
     x_mouse=pos_mouse[0]
@@ -184,13 +183,10 @@ for i in range(0,len(stimList)):
     CUE.draw();
     win.flip(); 
     core.wait(float(presentation_period_cue))
-    
     # pre setim period
     fixation_circle();
     win.flip();    
-    core.wait(float(pre_stim_period))
-    
-    
+    core.wait(float(pre_stim_period))       
     #############################
     ############################# PRESENTATION PERIOD 1
     #############################       
@@ -282,8 +278,7 @@ for i in range(0,len(stimList)):
         angle_save = 360+ angle_save
     
     A_R = angle_save
-    
-    ## Angle error
+    #Angle error (correct if bigger than 180)
     A_err = angle_target - A_R
     if A_err < -180:
         A_err=angle_target - A_R  + 360
