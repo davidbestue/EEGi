@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import os
 
-trials_condition=45
+trials_condition=30
 n_conditions=4
 N = trials_condition * n_conditions
 
