@@ -292,8 +292,10 @@ for i in range(0,len(stimList)):
           
 
 
-
+######################################################################################################################## END TRIGGER! switch_diode()
 win.close()
+
+#Save output
 df = pd.DataFrame(OUTPUT)
 index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
           'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'start_delay1', 'start_delay2', 'start_response', 'response_time',
@@ -303,9 +305,10 @@ index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order'
 df.columns = index_columns
 filename =  name + '_' + session + '.xlsx'
 
-while filename in os.listdir('results'):
-    print(1)
-    filename = filename.split('.')[0]  + '_copy.xlsx'
+counter=0
+while filename in os.listdir('results'): #in case it has the same name, add a number behind
+    counter +=1
+    filename = filename.split('.')[0]  +'_' +str(counter) + '.xlsx'
     
 
 pathname =  root + '\\results\\' + filename    
