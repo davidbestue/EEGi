@@ -121,8 +121,6 @@ stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']]
 
 #list to append the results
 OUTPUT=[] 
-
-
 #convert cm distane in pixels
 mouse_fix_min=int ( cm2pix(float(mouse_fix_min)) )
 mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
