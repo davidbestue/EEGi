@@ -104,17 +104,15 @@ if __name__ == "__main__":
 
 
 
-filename =  name + '.xlsx'
 session=1
+filename =  name + '_' + session + '.xlsx'
+
 while filename in os.listdir('results'): #in case it has the same name, add a number behind
     session +=1
-    filename = filename.split('.')[0]  +'_' +str(session) + '.xlsx' #subje_1, subj_1_2, subj_1_2_3, subj_2, subj_2_2
-
-if filename ==  name + '.xlsx':
-    filename =  name + '_1.xlsx'
-
-
+    filename =  filename.split('.')[0].split('_')[0]  + '_' + +str(session) + '.xlsx'
     
+
+   
 #Select the file with the trials 
 stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
 stims = pd.read_csv(stims_file, sep=" ") 
