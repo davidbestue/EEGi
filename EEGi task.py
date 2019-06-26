@@ -96,15 +96,25 @@ def fixation_circle():
 
 ## Subject name and session (open a box)
 if __name__ == "__main__":
-    info = {'Subject':'Subject', 'session': '1'}
+    info = {'Subject':'Subject'}
     infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
     if infoDlg.OK:
         name = info['Subject']
-        session= info['session']
     if infoDlg.OK==False: core.quit() #user pressed cancel
 
 
 
+filename =  name + '.xlsx'
+session=1
+while filename in os.listdir('results'): #in case it has the same name, add a number behind
+    session +=1
+    filename = filename.split('.')[0]  +'_' +str(session) + '.xlsx' #subje_1, subj_1_2, subj_1_2_3, subj_2, subj_2_2
+
+if filename ==  name + '.xlsx':
+    filename =  name + '_1.xlsx'
+
+
+    
 #Select the file with the trials 
 stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
 stims = pd.read_csv(stims_file, sep=" ") 
@@ -303,13 +313,7 @@ index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order'
 
 
 df.columns = index_columns
-filename =  name + '_' + session + '.xlsx'
-
-counter=1
-while filename in os.listdir('results'): #in case it has the same name, add a number behind
-    counter +=1
-    filename = filename.split('.')[0]  +'_' +str(counter) + '.xlsx' #subje_1, subj_1_2, subj_1_2_3, subj_2, subj_2_2
-    
+   
 
 pathname =  root + '\\results\\' + filename    
 df.to_excel(pathname)
