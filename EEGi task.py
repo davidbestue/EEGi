@@ -5,64 +5,51 @@ Created on Mon Nov 07 12:56:14 2016
 @author: David Bestue
 """
 
-#To run this code you have to run in a Terminal  "python WM task.py 'name and session' " Open a terminal and move with cd to the
-#path where WM task.py is placed.
-#Before that you must have created a file with stimuli by using the file: generator_stim.py 
-#Libraries that are needed! Psychopy, easygui, math, numpy, pygaze, pickle, os and pyglet are going to be needed.
-
+#To run this code you have to run in a Terminal  "python WM task.py 'name and session' " Open a terminal and move to the path this script
+#Requires 2 directories: stims and results
+#  
+# Import Libraries 
 from psychopy import visual, core, event, gui
 import easygui
-from math import cos, sin, radians, sqrt, degrees, asin, acos, atan2, pi
-from numpy import zeros, vstack, array, savetxt, mean, std, arange
+from math import cos, sin, radians, sqrt, atan2, pi
+import numpy as np
 import os
-import sys
-from pickle import dump
-from random import choice
 import pandas as pd
 
 
-root = os.getcwd()
-    
-## Name subject and session
-if __name__ == "__main__":
-    info = {'Subject':'Subject', 'session': '1'}
-    infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
-    if infoDlg.OK:
-        name = info['Subject']
-        session= info['session']
-    if infoDlg.OK==False: core.quit() #user pressed cancel
-
+root = os.getcwd() #root
 
 #Parameters
+#size
 radius= 8 
-presentation_period= 0.350 
+size_stim= 1 
+#time
+presentation_period= 0.350 ## must be the same as in the stim_generator
 presentation_period_distractor= 0.350
 presentation_period_cue=  0.500
 inter_trial_period= 0.5 
-size_stim= 1 
-mouse_fix_min=-2.5 
-mouse_fix_max=2.5 
-decimals=3 
-limit_time=3 
 pre_stim_period = 0.5
-
+#fixation
+mouse_fix_min=-2.5 #delimits the area of fixation
+mouse_fix_max=2.5 #delimits the area of fixation
 #colors in rgb code
 grey=[0,0,0]
 black=[-1,-1,-1]
 yellow=[1, 1, 0]
-
 #Screen parameters. This parameters must be ajusted according to your screen features.
 screen = [1920, 1080]
 width, length = [1920, 1080]
 diagonal= 22.05    
-
 #inches of the screen diagonal (check on All settings --> Displays or internet: http://howbigismyscreen.co/ )
 #Has de vigilar segun si es full screen o no... siempre será la diagonal de la screen que aparezca!!!
 ### screen psycho 22.05 (47.4cm x 29,8 --> 56 cm de diagonal--> 22.05 inches)
 pix_per_inch=sqrt(width**2+length**2)/diagonal
 pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
+#others
+decimals=3
 
 
+    
 #Functions that will be used
 def cm2pix(cm):
     return  pix_per_cm * cm  
@@ -80,6 +67,19 @@ def circ_dist(a1,a2):
 def getAngle(v):
     a=atan2(v[1],v[0])
     return 180*a/pi
+
+
+
+## Name subject and session (open a box)
+if __name__ == "__main__":
+    info = {'Subject':'Subject', 'session': '1'}
+    infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
+    if infoDlg.OK:
+        name = info['Subject']
+        session= info['session']
+    if infoDlg.OK==False: core.quit() #user pressed cancel
+
+
 
 #Select the file with the trials (python gen_input_dist.py 'Subject Name') the file is going to be in a folder with the name of the subject.
 stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
@@ -289,7 +289,7 @@ win.close()
 
 
 df = pd.DataFrame(OUTPUT)
-index_columns=array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
+index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
           'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'start_delay1', 'start_delay2', 'start_response', 'response_time',
           'name', 'session']) 
 
