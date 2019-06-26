@@ -264,7 +264,7 @@ for i in range(0,len(stimList)):
     #############################
     ############################# Response
     ############################# 
-    MOUSE.setPos([0,0])
+    MOUSE.setPos([0,0]) #force the mouse to be at 0 by the time of the response (anticipation not helpful)
     fixation_response(); 
     MOUSE=event.Mouse(win=win, visible=True)
     MOUSE.clickReset()
