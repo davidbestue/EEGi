@@ -44,7 +44,6 @@ diagonal= 22.05
 decimals=3
 
 
-    
 #Functions 
 
 def circ_dist(a1,a2):
