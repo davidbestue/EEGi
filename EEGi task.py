@@ -294,7 +294,7 @@ for i in range(0,len(stimList)):
 
 
 ######################################################################################################################## END TRIGGER! switch_diode()
-win.close()
+win.close() #close the windows
 
 #Save output
 df = pd.DataFrame(OUTPUT)
@@ -303,9 +303,9 @@ index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order'
           'name', 'session']) 
 
 
-df.columns = index_columns
-   
-
+df.columns = index_columns 
 pathname =  root + '\\results\\' + filename    
-df.to_excel(pathname)
+df.to_excel(pathname) ## save the file
+
+##
 
