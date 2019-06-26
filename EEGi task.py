@@ -40,20 +40,12 @@ yellow=[1, 1, 0]
 screen = [1920, 1080]
 width, length = [1920, 1080]
 diagonal= 22.05    
-#inches of the screen diagonal (check on All settings --> Displays or internet: http://howbigismyscreen.co/ )
-#Has de vigilar segun si es full screen o no... siempre será la diagonal de la screen que aparezca!!!
-### screen psycho 22.05 (47.4cm x 29,8 --> 56 cm de diagonal--> 22.05 inches)
-pix_per_inch=sqrt(width**2+length**2)/diagonal
-pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 #others
 decimals=3
 
 
     
-#Functions that will be used
-def cm2pix(cm):
-    return  pix_per_cm * cm  
-
+#Functions 
 
 def circ_dist(a1,a2):
     ## Returns the minimal distance in angles between to angles 
@@ -64,44 +56,21 @@ def circ_dist(a1,a2):
     return min(options)
 
 
-def getAngle(v):
+def getAngle(v): 
+    ## converts the position of the mouse to the angle of response
     a=atan2(v[1],v[0])
     return 180*a/pi
 
 
+#inches of the screen diagonal (check on All settings --> Displays or internet: http://howbigismyscreen.co/ )
+#Has de vigilar segun si es full screen o no... siempre será la diagonal de la screen que aparezca!!!
+### screen psycho 22.05 (47.4cm x 29,8 --> 56 cm de diagonal--> 22.05 inches)
+pix_per_inch=sqrt(width**2+length**2)/diagonal
+pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 
-## Name subject and session (open a box)
-if __name__ == "__main__":
-    info = {'Subject':'Subject', 'session': '1'}
-    infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
-    if infoDlg.OK:
-        name = info['Subject']
-        session= info['session']
-    if infoDlg.OK==False: core.quit() #user pressed cancel
-
-
-
-#Select the file with the trials (python gen_input_dist.py 'Subject Name') the file is going to be in a folder with the name of the subject.
-stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
-stims = pd.read_csv(stims_file, sep=" ") 
-stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
-stimList =stimList.iloc[:4, :]
-
-#list to append the results
-OUTPUT=[] #add columns for A_R, R_T, A_err, Interf, Subj, time_order, time_target, time_dist, time_delay1, time_delay2, onset_resp, resp_time, reaction_time 
-
-
-mouse_fix_min=-2.5 
-mouse_fix_max=2.5 
-
-#convert cm distane in pixels
-mouse_fix_min=int ( cm2pix(float(mouse_fix_min)) )
-mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
-
-
-#################
-##### START OF THE TASK
-win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
+def cm2pix(cm):
+    #converts cms to pixels
+    return  pix_per_cm * cm  
 
 
 def fixation():
@@ -125,15 +94,47 @@ def fixation_circle():
 
 
 
-TIME = core.Clock();
+
+## Subject name and session (open a box)
+if __name__ == "__main__":
+    info = {'Subject':'Subject', 'session': '1'}
+    infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
+    if infoDlg.OK:
+        name = info['Subject']
+        session= info['session']
+    if infoDlg.OK==False: core.quit() #user pressed cancel
+
+
+
+#Select the file with the trials 
+stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
+stims = pd.read_csv(stims_file, sep=" ") 
+stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
+stimList =stimList.iloc[:4, :]
+
+#list to append the results
+OUTPUT=[] 
+
+
+#convert cm distane in pixels
+mouse_fix_min=int ( cm2pix(float(mouse_fix_min)) )
+mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
+
+
+#################
+################# START OF THE DISPLAY
+#################
+
+win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
+
+######################################################################################################################## START TRIGGER! switch_diode()
+TIME = core.Clock(); #overall time
 TIME.reset();
 
-for i in range(0,len(stimList)):
-    
+for i in range(0,len(stimList)):    
     time_start_trial=TIME.getTime()
-    #take a new trial everytime and restore the features of fixation  
-    trial=stimList.iloc[i]            
-    #take the relevant info from the trial (Target=T, Non-Targuet=NT, Distractor=Dist)
+    trial=stimList.iloc[i] #take a new trial everytime and restore the features of fixation           
+    #take the relevant info from the trial 
     angle_target=trial['A_T']
     angle_Dist=trial['A_dist']
     delay1=trial['delay1']
@@ -141,7 +142,6 @@ for i in range(0,len(stimList)):
     distance_T_dist=trial['dist']
     order=trial['order']
     cw_ccw=trial['cw_ccw']
-    
     #Convert the (cm, degrees) to (x_cm. y_cm) and change it to pixels with the function cm2pix. We round everything up to three decimals
     X_T=round(cm2pix(radius*cos(radians(angle_target))), decimals)
     Y_T=round(cm2pix(radius*sin(radians(angle_target))), decimals)
@@ -172,6 +172,7 @@ for i in range(0,len(stimList)):
     time_to_fixate=round(time_to_fixate, decimals)
     
     #CUE PERIOD 
+    ######################################################################################################################## Presentation att_cue! switch_diode()
     presentation_att_cue_time= TIME.getTime()
     presentation_att_cue_time=round(presentation_att_cue_time, decimals)
     CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
@@ -189,6 +190,7 @@ for i in range(0,len(stimList)):
     ############################# PRESENTATION PERIOD 1
     #############################       
     if order==1:
+        ######################################################################################################################## Presentation target! switch_diode()
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         presentation_target_time=round(presentation_target_time, decimals);
         fixation_circle();        
@@ -198,6 +200,7 @@ for i in range(0,len(stimList)):
         core.wait(float(presentation_period))
         
     elif order==2:
+        ######################################################################################################################## Presentation distractor! switch_diode()
         presentation_dist_time= TIME.getTime()
         presentation_dist_time=round(presentation_dist_time, decimals)   
         fixation_circle();        
@@ -209,6 +212,7 @@ for i in range(0,len(stimList)):
     #############################
     ############################# DELAY 1
     ############################# 
+    ######################################################################################################################## Start delsy1! switch_diode()
     start_delay1= TIME.getTime()
     fixation_circle();  
     win.flip()
@@ -217,6 +221,7 @@ for i in range(0,len(stimList)):
     ############################# PRESENTATION PERIOD 2
     #############################       
     if order==1:
+        ######################################################################################################################## Presentation distractor! switch_diode()
         presentation_dist_time= TIME.getTime()
         presentation_dist_time=round(presentation_dist_time, decimals)   
         fixation_circle();        
@@ -226,6 +231,7 @@ for i in range(0,len(stimList)):
         core.wait(float(presentation_period))
         
     elif order==2:
+        ######################################################################################################################## Presentation target! switch_diode()
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         presentation_target_time=round(presentation_target_time, decimals);
         fixation_circle();        
@@ -237,6 +243,7 @@ for i in range(0,len(stimList)):
     #############################
     ############################# DELAY 2
     ############################# 
+    ######################################################################################################################## Start delay2! switch_diode()
     start_delay2= TIME.getTime()
     fixation_circle();  
     win.flip()
@@ -249,6 +256,7 @@ for i in range(0,len(stimList)):
     MOUSE=event.Mouse(win=win, visible=True)
     MOUSE.clickReset()
     #reaction time
+    ######################################################################################################################## Start Response! switch_diode()
     start_response = TIME.getTime()   
     while MOUSE.getPressed()[0]==0:
         fixation_response();
@@ -257,6 +265,7 @@ for i in range(0,len(stimList)):
     
     if MOUSE.getPressed()[0]==1:
         fixation_response();
+        ######################################################################################################################## End Response! switch_diode()
         response_time = TIME.getTime()
         pos=MOUSE.getPos()
         reaction_time = response_time - start_response
@@ -286,8 +295,6 @@ for i in range(0,len(stimList)):
 
 
 win.close()
-
-
 df = pd.DataFrame(OUTPUT)
 index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
           'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'start_delay1', 'start_delay2', 'start_response', 'response_time',
