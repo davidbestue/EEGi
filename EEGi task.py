@@ -313,6 +313,9 @@ core.wait(2)
 win.flip()
 win.close() #close the windows
 
+
+
+
 #Save output
 df = pd.DataFrame(OUTPUT)
 index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
