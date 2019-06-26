@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
 
 session=1
-filename =  name + '_' + session + '.xlsx'
+filename =  name + '_' + str(session) + '.xlsx'
 
 while filename in os.listdir('results'): #in case it has the same name, add a number behind
     session +=1
