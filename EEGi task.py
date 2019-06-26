@@ -73,11 +73,13 @@ def cm2pix(cm):
 
 
 def fixation():
+    #draw the fixation cross
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
     fixation_cross.draw(); 
     
 
 def fixation_response():
+    #draw the fixation cross lighted in yellow and the circle where the stims will be presented
     circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
     circ.draw();
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=yellow, units='pix', height=length/20)
@@ -86,6 +88,7 @@ def fixation_response():
 
 
 def fixation_circle():
+    #draw the fixation cross and the circle where the stims will be presented
     circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
     circ.draw();
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
@@ -288,7 +291,7 @@ for i in range(0,len(stimList)):
     ## Save output    
     OUTPUT.append([angle_target, angle_Dist, delay1, delay2, distance_T_dist, order, cw_ccw, A_R, A_err, reaction_time,
           time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time,
-          name, session])
+          name, session]) ## 21 columns
           
           
 
