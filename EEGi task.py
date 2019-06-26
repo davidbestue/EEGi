@@ -70,7 +70,7 @@ pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 
 
 def quit_task():
-    if event.getKeys("Esc"): win.close() 
+    if event.getKeys('escape'): win.close() 
     
 
 def cm2pix(cm):
@@ -80,14 +80,14 @@ def cm2pix(cm):
 
 def fixation():
     #draw the fixation cross
-    quit_task;
+    quit_task();
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
     fixation_cross.draw(); 
     
 
 def fixation_response():
     #draw the fixation cross lighted in yellow and the circle where the stims will be presented
-    quit_task;
+    quit_task();
     circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
     circ.draw();
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=yellow, units='pix', height=length/20)
@@ -96,7 +96,7 @@ def fixation_response():
 
 
 def fixation_circle():
-    quit_task;
+    quit_task();
     #draw the fixation cross and the circle where the stims will be presented
     circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
     circ.draw();
@@ -306,6 +306,11 @@ for i in range(0,len(stimList)):
 
 
 ######################################################################################################################## END TRIGGER! switch_diode()
+Final_text=visual.TextStim(win=win, text='Thank you!', pos=[-3,0], color=[1,1,1], units='pix', height=100)        
+Final_text.draw()
+win.flip()
+core.wait(2)
+win.flip()
 win.close() #close the windows
 
 #Save output
