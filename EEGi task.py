@@ -67,6 +67,12 @@ def getAngle(v):
 pix_per_inch=sqrt(width**2+length**2)/diagonal
 pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 
+
+
+def quit_task():
+    if event.getKeys("escape"): win.close() 
+    
+
 def cm2pix(cm):
     #converts cms to pixels
     return  pix_per_cm * cm  
@@ -74,12 +80,14 @@ def cm2pix(cm):
 
 def fixation():
     #draw the fixation cross
+    quit_task;
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
     fixation_cross.draw(); 
     
 
 def fixation_response():
     #draw the fixation cross lighted in yellow and the circle where the stims will be presented
+    quit_task;
     circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
     circ.draw();
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=yellow, units='pix', height=length/20)
@@ -88,6 +96,7 @@ def fixation_response():
 
 
 def fixation_circle():
+    quit_task;
     #draw the fixation cross and the circle where the stims will be presented
     circ = visual.Circle(win=win, units="pix", radius=cm2pix(radius), edges=180, pos=(0,0), fillColor=grey, lineColor=black)
     circ.draw();
@@ -187,7 +196,7 @@ for i in range(0,len(stimList)):
     win.flip(); 
     core.wait(float(presentation_period_cue))
     # pre setim period
-    fixation_circle();
+    fixation(); 
     win.flip();    
     core.wait(float(pre_stim_period))       
     #############################
@@ -197,7 +206,7 @@ for i in range(0,len(stimList)):
         ######################################################################################################################## Presentation target! switch_diode()
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         presentation_target_time=round(presentation_target_time, decimals);
-        fixation_circle();        
+        fixation();        
         target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
         target.draw();
         win.flip() 
@@ -207,7 +216,7 @@ for i in range(0,len(stimList)):
         ######################################################################################################################## Presentation distractor! switch_diode()
         presentation_dist_time= TIME.getTime()
         presentation_dist_time=round(presentation_dist_time, decimals)   
-        fixation_circle();        
+        fixation();        
         Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
         Distractor.draw()   
         win.flip()
@@ -218,7 +227,7 @@ for i in range(0,len(stimList)):
     ############################# 
     ######################################################################################################################## Start delsy1! switch_diode()
     start_delay1= TIME.getTime()
-    fixation_circle();  
+    fixation();  
     win.flip()
     core.wait(float(delay1))    
     #############################
@@ -228,7 +237,7 @@ for i in range(0,len(stimList)):
         ######################################################################################################################## Presentation distractor! switch_diode()
         presentation_dist_time= TIME.getTime()
         presentation_dist_time=round(presentation_dist_time, decimals)   
-        fixation_circle();        
+        fixation();        
         Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
         Distractor.draw()   
         win.flip()
@@ -238,7 +247,7 @@ for i in range(0,len(stimList)):
         ######################################################################################################################## Presentation target! switch_diode()
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         presentation_target_time=round(presentation_target_time, decimals);
-        fixation_circle();        
+        fixation();       
         target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
         target.draw();
         win.flip() 
@@ -249,7 +258,7 @@ for i in range(0,len(stimList)):
     ############################# 
     ######################################################################################################################## Start delay2! switch_diode()
     start_delay2= TIME.getTime()
-    fixation_circle();  
+    fixation(); 
     win.flip()
     core.wait(float(delay2)) 
     #############################
