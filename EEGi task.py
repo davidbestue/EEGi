@@ -144,7 +144,8 @@ mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 
 win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
 
-######################################################################################################################## START TRIGGER! switch_diode()
+
+#TRIGGER####################################################################################################################### start experiment (0)
 TIME = core.Clock(); #overall time
 TIME.reset();
 
@@ -188,12 +189,12 @@ for i in range(0,len(stimList)):
     time_to_fixate=round(time_to_fixate, decimals)
     
     #CUE PERIOD 
-    ######################################################################################################################## Presentation att_cue! switch_diode()
-    presentation_att_cue_time= TIME.getTime()
-    presentation_att_cue_time=round(presentation_att_cue_time, decimals)
+    #TRIGGER####################################################################################################################### Presentation cue (1)
     CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
     CUE.draw();
     win.flip(); 
+    presentation_att_cue_time= TIME.getTime(); #start of the trial unitil presentation
+    presentation_att_cue_time=round(presentation_att_cue_time, decimals);
     core.wait(float(presentation_period_cue))
     # pre setim period
     fixation(); 
@@ -203,30 +204,31 @@ for i in range(0,len(stimList)):
     ############################# PRESENTATION PERIOD 1
     #############################       
     if order==1:
-        ######################################################################################################################## Presentation target! switch_diode()
-        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
-        presentation_target_time=round(presentation_target_time, decimals);
+        #TRIGGER####################################################################################################################### Presentation target (2)
         fixation();  #no circle during presentation (EEG problems?)        
         target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
         target.draw();
         win.flip() 
+        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        presentation_target_time=round(presentation_target_time, decimals);
         core.wait(float(presentation_period))
         
     elif order==2:
-        ######################################################################################################################## Presentation distractor! switch_diode()
-        presentation_dist_time= TIME.getTime()
-        presentation_dist_time=round(presentation_dist_time, decimals)   
+        #TRIGGER####################################################################################################################### Presentation distractor (3)
         fixation();  #no circle during presentation (EEG problems?)        
         Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
         Distractor.draw()   
         win.flip()
+        presentation_dist_time= TIME.getTime()
+        presentation_dist_time=round(presentation_dist_time, decimals)  
         core.wait(float(presentation_period))
     
     #############################
     ############################# DELAY 1
     ############################# 
-    ######################################################################################################################## Start delsy1! switch_diode()
+    #TRIGGER####################################################################################################################### start delay 1 (4)
     start_delay1= TIME.getTime()
+    start_delay1=round(start_delay1, decimals)
     fixation();  #no circle during delay (EEG problems?)   
     win.flip()
     core.wait(float(delay1))    
@@ -234,30 +236,31 @@ for i in range(0,len(stimList)):
     ############################# PRESENTATION PERIOD 2
     #############################       
     if order==1:
-        ######################################################################################################################## Presentation distractor! switch_diode()
-        presentation_dist_time= TIME.getTime()
-        presentation_dist_time=round(presentation_dist_time, decimals)   
+        #TRIGGER####################################################################################################################### Presentation distractor (3)
         fixation();   #no circle during presentation (EEG problems?)       
         Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
         Distractor.draw()   
         win.flip()
+        presentation_dist_time= TIME.getTime()
+        presentation_dist_time=round(presentation_dist_time, decimals) 
         core.wait(float(presentation_period))
         
     elif order==2:
-        ######################################################################################################################## Presentation target! switch_diode()
-        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
-        presentation_target_time=round(presentation_target_time, decimals);
+        #TRIGGER####################################################################################################################### Presentation target (2)
         fixation();  #no circle during presentation (EEG problems?)     
         target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
         target.draw();
         win.flip() 
+        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        presentation_target_time=round(presentation_target_time, decimals);
         core.wait(float(presentation_period))
     
     #############################
     ############################# DELAY 2
     ############################# 
-    ######################################################################################################################## Start delay2! switch_diode()
+    #TRIGGER####################################################################################################################### start delay 2 (5)
     start_delay2= TIME.getTime()
+    start_delay2=round(start_delay2, decimals)
     fixation(); #no circle during delay (EEG problems?)  
     win.flip()
     core.wait(float(delay2)) 
@@ -269,8 +272,9 @@ for i in range(0,len(stimList)):
     MOUSE=event.Mouse(win=win, visible=True) 
     MOUSE.clickReset()
     #reaction time
-    ######################################################################################################################## Start Response! switch_diode()
+    #TRIGGER####################################################################################################################### start response (6)
     start_response = TIME.getTime()   
+    start_response=round(start_response, decimals)
     while MOUSE.getPressed()[0]==0:
         fixation_response();
         win.flip()
@@ -278,8 +282,9 @@ for i in range(0,len(stimList)):
     
     if MOUSE.getPressed()[0]==1:
         fixation_response();
-        ######################################################################################################################## End Response! switch_diode()
+        #TRIGGER####################################################################################################################### response given (7)
         response_time = TIME.getTime()
+        response_time=round(response_time, decimals)
         pos=MOUSE.getPos()
         reaction_time = response_time - start_response
         win.flip()
@@ -305,12 +310,13 @@ for i in range(0,len(stimList)):
           
 
 
-######################################################################################################################## END TRIGGER! switch_diode()
 Final_text=visual.TextStim(win=win, text='Thank you!', pos=[-3,0], color=[1,1,1], units='pix', height=100) ##final text    
 Final_text.draw()
 win.flip()
 core.wait(2) #display it for 2 seconds
 win.close() #close the windows
+
+#TRIGGER####################################################################################################################### end task (8)
 
 
 #Save output
