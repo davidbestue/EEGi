@@ -41,7 +41,9 @@ width, length = [1920, 1080]
 diagonal= 22.05    
 #others
 decimals=3
-
+refresh_rate=60
+time_frame=1000/refresh_rate
+frames_stim_present = presentation_period*1000/time_frame
 
 #Functions 
 
@@ -214,8 +216,9 @@ for i in range(0,len(stimList)):
         
         fixation();  #no circle during presentation (EEG problems?)  
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
-        for frameN in range(25):
-            target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
+        for frameN in range(frames_stim_present):
+            target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
+            fixation();
             target.draw();
             win.flip() 
         
