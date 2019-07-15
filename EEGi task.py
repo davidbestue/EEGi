@@ -43,7 +43,7 @@ diagonal= 22.05
 decimals=3
 refresh_rate=60
 time_frame=1000/refresh_rate
-frames_stim_present = presentation_period*1000/time_frame
+frames_stim_present = int( presentation_period*1000/time_frame )
 
 #Functions 
 
@@ -231,7 +231,7 @@ for i in range(0,len(stimList)):
         for frameN in range(frames_stim_present):
             Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
             fixation();
-            target.draw();
+            Distractor.draw();
             win.flip() 
         
                 
@@ -264,7 +264,7 @@ for i in range(0,len(stimList)):
         for frameN in range(frames_stim_present):
             Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
             fixation();
-            target.draw();
+            Distractor.draw();
             win.flip() 
         
                 
