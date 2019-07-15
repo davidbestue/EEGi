@@ -204,13 +204,23 @@ for i in range(0,len(stimList)):
     #############################       
     if order==1:
         #TRIGGER####################################################################################################################### Presentation target (2)
-        fixation();  #no circle during presentation (EEG problems?)        
-        target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
-        target.draw();
-        win.flip() 
+        #fixation();  #no circle during presentation (EEG problems?)        
+        #target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
+        #target.draw();
+        #win.flip() 
+        #presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        #presentation_target_time=round(presentation_target_time, decimals);
+        #core.wait(float(presentation_period))
+        
+        fixation();  #no circle during presentation (EEG problems?)  
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        for frameN in range(25):
+            target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
+            target.draw();
+            win.flip() 
+        
         presentation_target_time=round(presentation_target_time, decimals);
-        core.wait(float(presentation_period))
+        #core.wait(float(presentation_period))
         
     elif order==2:
         #TRIGGER####################################################################################################################### Presentation distractor (3)
