@@ -269,8 +269,6 @@ for i in range(0,len(stimList)):
         CUE.draw();
         end_presentation_cue_time=TIME.getTime();
         win.flip(); 
-        #start of the trial unitil presentation        
-        #core.wait(float(presentation_period_cue))
     
     
     presentation_att_cue_time=round(presentation_att_cue_time, decimals);
@@ -280,20 +278,13 @@ for i in range(0,len(stimList)):
     for frameN in range(frames_pre_stim):
         fixation(); 
         win.flip();    
-        #core.wait(float(pre_stim_period))       
+           
     #############################
     ############################# PRESENTATION PERIOD 1
     #############################       
     if order==1:
         #TRIGGER####################################################################################################################### Presentation target (2)
-        #fixation();  #no circle during presentation (EEG problems?)        
-        #target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
-        #target.draw();
-        #win.flip() 
-        #presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
-        #presentation_target_time=round(presentation_target_time, decimals);
-        #core.wait(float(presentation_period))
-        
+                
         fixation();  #no circle during presentation (EEG problems?)  
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         for frameN in range(frames_stim_present):
@@ -304,14 +295,12 @@ for i in range(0,len(stimList)):
             win.flip() 
             
         
-        #end_pres_time=TIME.getTime()
         time_stim_presenta = end_presentation_target_time - presentation_target_time
         print(time_stim_presenta)
         end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
 
-        #core.wait(float(presentation_period))
-        
+                
     elif order==2:
         #TRIGGER####################################################################################################################### Presentation distractor (3)
         presentation_dist_time= TIME.getTime() #start of the trial unitil presentation
@@ -325,15 +314,6 @@ for i in range(0,len(stimList)):
                 
         presentation_dist_time=round(presentation_dist_time, decimals) 
         end_presentation_dist_time=round(end_presentation_dist_time, decimals) 
-        
-        
-        #fixation();  #no circle during presentation (EEG problems?)        
-        #Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
-        #Distractor.draw()   
-        #win.flip()
-        #presentation_dist_time= TIME.getTime()
-        #presentation_dist_time=round(presentation_dist_time, decimals)  
-        #core.wait(float(presentation_period))
     
     #############################
     ############################# DELAY 1
@@ -344,7 +324,7 @@ for i in range(0,len(stimList)):
         fixation(); 
         end_delay1 = TIME.getTime()
         win.flip(); 
-        #core.wait(float(delay1))    
+        
     
     
     start_delay1=round(start_delay1, decimals)
@@ -366,14 +346,6 @@ for i in range(0,len(stimList)):
         presentation_dist_time=round(presentation_dist_time, decimals)
         end_presentation_dist_time=round(end_presentation_dist_time, decimals) 
         
-        #fixation();   #no circle during presentation (EEG problems?)       
-        #Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
-        #Distractor.draw()   
-        #win.flip()
-        #presentation_dist_time= TIME.getTime()
-        #presentation_dist_time=round(presentation_dist_time, decimals) 
-        #core.wait(float(presentation_period))
-        
     elif order==2:
         fixation();  #no circle during presentation (EEG problems?)  
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
@@ -389,15 +361,6 @@ for i in range(0,len(stimList)):
         print(time_stim_presenta)
         end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
-        #presentation_target_time=round(presentation_target_time, decimals);
-        #TRIGGER####################################################################################################################### Presentation target (2)
-        #fixation();  #no circle during presentation (EEG problems?)     
-        #target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))        
-        #target.draw();
-        #win.flip() 
-        #presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
-        #presentation_target_time=round(presentation_target_time, decimals);
-        #core.wait(float(presentation_period))
     
     #############################
     ############################# DELAY 2
@@ -408,7 +371,7 @@ for i in range(0,len(stimList)):
         fixation(); 
         end_delay2 = TIME.getTime()
         win.flip(); 
-        #core.wait(float(delay1))    
+        
     
     
     start_delay2=round(start_delay2, decimals)
