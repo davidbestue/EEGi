@@ -191,7 +191,7 @@ disp_text()
 Start_text=visual.TextStim(win=win, text='Cuando la cruz del centro se vuelva amarilla, deberá hacer click en la posición que está recordando', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
 disp_text()   
 
-Start_text=visual.TextStim(win=win, text='Aunque sea complicado, deberá useted mirar TODO el rato, a la cruz del centro de la pantalla', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+Start_text=visual.TextStim(win=win, text='Aunque sea complicado, deberá mirar TODO el rato a la cruz del centro de la pantalla', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
 disp_text()  
 
 Start_text=visual.TextStim(win=win, text='Incluso a la hora de responder, no aparte la vista de la cruz del centro de la pantalla', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
