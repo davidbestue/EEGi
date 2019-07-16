@@ -139,10 +139,6 @@ stimList=pd.DataFrame(stims[1:,:])
 stimList.columns=stims[0,:]  ##coming from stim gernator.py
 stimList =stimList.iloc[:5, :]
 
-#stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
-#stims = pd.read_csv(stims_file, sep=" ") 
-#stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
-#stimList =stimList.iloc[:5, :]
 
 #list to append the results
 OUTPUT=[] 
