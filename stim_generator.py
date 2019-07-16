@@ -59,11 +59,11 @@ column_titles=np.reshape(column_titles, (1,len(column_titles)))
 trials_sess=np.concatenate((column_titles, trials_random))
 
 # Select the path you want to save the file and save it
-os.chdir('stims') #save in the directory stims (in the same path)
-np.savetxt('trials.txt',  trials_sess, fmt='{0: ^{1}}'.format("%s", 5)) #all subjects will use exactly the same set of stims.
+#os.chdir('stims') #save in the directory stims (in the same path)
+#np.savetxt('trials.txt',  trials_sess, fmt='{0: ^{1}}'.format("%s", 5)) #all subjects will use exactly the same set of stims.
 
 
-
+stims=trials_sess
     
         
 

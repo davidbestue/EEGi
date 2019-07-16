@@ -32,6 +32,7 @@ pre_stim_period = 0.5
 mouse_fix_min=-2.5 #delimits the area of fixation
 mouse_fix_max=2.5 #delimits the area of fixation
 #colors in rgb code
+white=[1,1,1]
 grey=[0,0,0]
 black=[-1,-1,-1]
 yellow=[1, 1, 0]
@@ -41,9 +42,15 @@ width, length = [1920, 1080]
 diagonal= 22.05    
 #others
 decimals=3
+
+#frames
+frame_correction = 2 #(2 frames to compensate for the lag, adjust depending on the computer)
 refresh_rate=60
 time_frame=1000/refresh_rate
-frames_stim_present = int( presentation_period*1000/time_frame )
+frames_stim_present = int( presentation_period*1000/time_frame ) - frame_correction
+frames_cue_present = int( presentation_period_cue*1000/time_frame ) - frame_correction
+frames_pre_stim = int( pre_stim_period*1000/time_frame )- frame_correction
+
 
 #Functions 
 
@@ -73,7 +80,7 @@ pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
 def quit_task():
     if event.getKeys('escape'): win.close() 
     
-
+    
 def cm2pix(cm):
     #converts cms to pixels
     return  pix_per_cm * cm  
@@ -127,10 +134,15 @@ while filename in os.listdir('results'): #in case it has the same name, add a nu
 
    
 #Select the file with the trials 
-stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
-stims = pd.read_csv(stims_file, sep=" ") 
-stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
+from stim_generator import *
+stimList=pd.DataFrame(stims[1:,:])
+stimList.columns=stims[0,:]  ##coming from stim gernator.py
 stimList =stimList.iloc[:5, :]
+
+#stims_file = easygui.fileopenbox() #This line opens you a box from where you can select the file with stimuli
+#stims = pd.read_csv(stims_file, sep=" ") 
+#stimList=stims[['order', 'A_T', 'A_dist', 'dist', 'cw_ccw', 'delay1', 'delay2']] 
+#stimList =stimList.iloc[:5, :]
 
 #list to append the results
 OUTPUT=[] 
@@ -146,6 +158,61 @@ mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
 
 
+################# Instructions
+
+def disp_text():
+    n=1
+    while n==1:
+        Start_text.draw()
+        win.flip()
+        if event.getKeys('space'): 
+            win.flip()
+            n=2
+    
+    #win.flip()
+    #core.wait(delay) 
+    
+
+
+margin_y = 0.3 * screen[1]
+side_y = ( screen[1] - 2*margin_y )/ 4
+
+MOUSE=event.Mouse(win=win, visible=False) 
+
+
+Start_text=visual.TextStim(win=win, text='Bienvenido a nuestra prueba de memoria', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()    
+
+Start_text=visual.TextStim(win=win, text='Durante la tarea, usted verá un número (1 o 2) seguido de una secuencia de 2 posiciones', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()    
+
+Start_text=visual.TextStim(win=win, text='Si usted ve un 1, deberá recordar la primera posición e ignorar la segunda', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()   
+
+Start_text=visual.TextStim(win=win, text='Si usted ve un 2, deberá ignorar la primera posición y recordar la segunda', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text() 
+
+Start_text=visual.TextStim(win=win, text='Cuando la cruz del centro se vuelva amarilla, deberá hacer click en la posición que está recordando', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()   
+
+Start_text=visual.TextStim(win=win, text='Aunque sea complicado, deberá useted mirar TODO el rato, a la cruz del centro de la pantalla', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()  
+
+Start_text=visual.TextStim(win=win, text='Incluso a la hora de responder, no aparte la vista de la cruz del centro de la pantalla', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()  
+
+Start_text=visual.TextStim(win=win, text='Una vez haya respondido, mueva el ratón hacia la cruz del centro de la pantalla para hacer la siguiente secuencia.', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()   
+
+Start_text=visual.TextStim(win=win, text='¿Alguna pregunta?', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()   
+
+Start_text=visual.TextStim(win=win, text='Tras pulsar "space", mire y mueva el ratón hacia la cruz del centro de la pantalla para empezar...', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
+disp_text()  
+
+
+
+
 #TRIGGER####################################################################################################################### start experiment (0)
 TIME = core.Clock(); #overall time
 TIME.reset();
@@ -154,12 +221,17 @@ for i in range(0,len(stimList)):
     time_start_trial=TIME.getTime()
     trial=stimList.iloc[i] #take a new trial everytime and restore the features of fixation           
     #take the relevant info from the trial 
-    angle_target=trial['A_T']
-    angle_Dist=trial['A_dist']
-    delay1=trial['delay1']
-    delay2=trial['delay2']
-    distance_T_dist=trial['dist']
-    order=trial['order']
+    angle_target=float(trial['A_T'])
+    angle_Dist=float(trial['A_dist'])
+    
+    delay1=float(trial['delay1'])
+    frames_delay1 = int( delay1*1000/time_frame )
+    
+    delay2=float(trial['delay2'])
+    frames_delay2 = int( delay2*1000/time_frame )
+    
+    distance_T_dist=float(trial['dist'])
+    order=int(trial['order'])
     cw_ccw=trial['cw_ccw']
     #Convert the (cm, degrees) to (x_cm. y_cm) and change it to pixels with the function cm2pix. We round everything up to three decimals
     X_T=round(cm2pix(radius*cos(radians(angle_target))), decimals)
@@ -186,21 +258,29 @@ for i in range(0,len(stimList)):
                
     
     #Start the display time when the subject is fixated
-    time_to_fixate=TIME.getTime() #time you need to fixate
-    time_to_fixate=round(time_to_fixate, decimals)
+    time_fixation=TIME.getTime() #time you need to fixate
+    time_to_fixate=round((time_fixation - time_start_trial) , decimals)
     
     #CUE PERIOD 
     #TRIGGER####################################################################################################################### Presentation cue (1)
-    CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
-    CUE.draw();
-    win.flip(); 
-    presentation_att_cue_time= TIME.getTime(); #start of the trial unitil presentation
+    presentation_att_cue_time= TIME.getTime(); 
+    for frameN in range(frames_cue_present):
+        CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
+        CUE.draw();
+        end_presentation_cue_time=TIME.getTime();
+        win.flip(); 
+        #start of the trial unitil presentation        
+        #core.wait(float(presentation_period_cue))
+    
+    
     presentation_att_cue_time=round(presentation_att_cue_time, decimals);
-    core.wait(float(presentation_period_cue))
+    end_presentation_cue_time=round(end_presentation_cue_time, decimals);
+    
     # pre setim period
-    fixation(); 
-    win.flip();    
-    core.wait(float(pre_stim_period))       
+    for frameN in range(frames_pre_stim):
+        fixation(); 
+        win.flip();    
+        #core.wait(float(pre_stim_period))       
     #############################
     ############################# PRESENTATION PERIOD 1
     #############################       
@@ -220,9 +300,16 @@ for i in range(0,len(stimList)):
             target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
             fixation();
             target.draw();
+            end_presentation_target_time=TIME.getTime();
             win.flip() 
+            
         
+        #end_pres_time=TIME.getTime()
+        time_stim_presenta = end_presentation_target_time - presentation_target_time
+        print(time_stim_presenta)
+        end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
+
         #core.wait(float(presentation_period))
         
     elif order==2:
@@ -232,10 +319,12 @@ for i in range(0,len(stimList)):
             Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
             fixation();
             Distractor.draw();
+            end_presentation_dist_time=TIME.getTime();
             win.flip() 
         
                 
         presentation_dist_time=round(presentation_dist_time, decimals) 
+        end_presentation_dist_time=round(end_presentation_dist_time, decimals) 
         
         
         #fixation();  #no circle during presentation (EEG problems?)        
@@ -251,10 +340,15 @@ for i in range(0,len(stimList)):
     ############################# 
     #TRIGGER####################################################################################################################### start delay 1 (4)
     start_delay1= TIME.getTime()
+    for frameN in range(frames_delay1):
+        fixation(); 
+        end_delay1 = TIME.getTime()
+        win.flip(); 
+        #core.wait(float(delay1))    
+    
+    
     start_delay1=round(start_delay1, decimals)
-    fixation();  #no circle during delay (EEG problems?)   
-    win.flip()
-    core.wait(float(delay1))    
+    end_delay1 = round(end_delay1, decimals)
     #############################
     ############################# PRESENTATION PERIOD 2
     #############################       
@@ -265,10 +359,12 @@ for i in range(0,len(stimList)):
             Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
             fixation();
             Distractor.draw();
+            end_presentation_dist_time=TIME.getTime();
             win.flip() 
         
                 
         presentation_dist_time=round(presentation_dist_time, decimals)
+        end_presentation_dist_time=round(end_presentation_dist_time, decimals) 
         
         #fixation();   #no circle during presentation (EEG problems?)       
         #Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))          
@@ -285,8 +381,14 @@ for i in range(0,len(stimList)):
             target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
             fixation();
             target.draw();
+            end_presentation_target_time=TIME.getTime();
             win.flip() 
         
+        
+        time_stim_presenta = end_presentation_target_time - presentation_target_time
+        print(time_stim_presenta)
+        end_presentation_target_time = round(end_presentation_target_time, decimals);
+        presentation_target_time=round(presentation_target_time, decimals);
         #presentation_target_time=round(presentation_target_time, decimals);
         #TRIGGER####################################################################################################################### Presentation target (2)
         #fixation();  #no circle during presentation (EEG problems?)     
@@ -302,10 +404,15 @@ for i in range(0,len(stimList)):
     ############################# 
     #TRIGGER####################################################################################################################### start delay 2 (5)
     start_delay2= TIME.getTime()
+    for frameN in range(frames_delay2):
+        fixation(); 
+        end_delay2 = TIME.getTime()
+        win.flip(); 
+        #core.wait(float(delay1))    
+    
+    
     start_delay2=round(start_delay2, decimals)
-    fixation(); #no circle during delay (EEG problems?)  
-    win.flip()
-    core.wait(float(delay2)) 
+    end_delay2 = round(end_delay2, decimals)
     #############################
     ############################# Response by clicking
     ############################# 
@@ -346,13 +453,15 @@ for i in range(0,len(stimList)):
     
     ## Save output    
     OUTPUT.append([angle_target, angle_Dist, delay1, delay2, distance_T_dist, order, cw_ccw, A_R, A_err, reaction_time,
-          time_start_trial, time_to_fixate, presentation_att_cue_time, presentation_target_time, presentation_dist_time, start_delay1, start_delay2, start_response, response_time,
+          time_start_trial, time_to_fixate, presentation_att_cue_time, end_presentation_cue_time, presentation_target_time,
+          end_presentation_target_time, presentation_dist_time, end_presentation_dist_time, start_delay1, end_delay1, start_delay2,
+          end_delay2, start_response, response_time,
           name, session]) ## 21 columns
           
           
 
 
-Final_text=visual.TextStim(win=win, text='Thank you!', pos=[-3,0], color=[1,1,1], units='pix', height=100) ##final text    
+Final_text=visual.TextStim(win=win, text='¡Muchas gracias!', pos=[-3,0], color=[1,1,1], units='pix', height=50) ##final text    
 Final_text.draw()
 win.flip()
 core.wait(2) #display it for 2 seconds
@@ -364,7 +473,9 @@ win.close() #close the windows
 #Save output
 df = pd.DataFrame(OUTPUT) #create a dataframe (iff you Escape, you can still run this last part)
 index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
-          'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'presentation_target_time', 'presentation_dist_time', 'start_delay1', 'start_delay2', 'start_response', 'response_time',
+          'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'end_presentation_cue_time', 'presentation_target_time', 
+          'end_presentation_target_time', 'presentation_dist_time', 'end_presentation_dist_time', 'start_delay1', 'end_delay1', 'start_delay2', 
+          'end_delay2', 'start_response', 'response_time',
           'name', 'session']) 
 
 
