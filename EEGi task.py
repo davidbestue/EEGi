@@ -6,11 +6,11 @@ Created on Mon Nov 07 12:56:14 2016
 """
 
 #To run this code you have to run in a Terminal  "python WM task.py 'name and session' " Open a terminal and move to the path this script
-#Requires 2 directories: stims and results
+#Requires 1 directory:  results
 #  
 # Import Libraries 
 from psychopy import visual, core, event, gui
-import easygui
+#import easygui
 from math import cos, sin, radians, sqrt, atan2, pi
 import numpy as np
 import os
@@ -53,7 +53,6 @@ frames_pre_stim = int( pre_stim_period*1000/time_frame )- frame_correction
 
 
 #Functions 
-
 def circ_dist(a1,a2):
     ## Returns the minimal distance in angles between to angles 
     op1=abs(a2-a1)
