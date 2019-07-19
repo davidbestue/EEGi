@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 07 12:56:14 2016
@@ -160,15 +161,17 @@ mouse_fix_min=int ( cm2pix(float(mouse_fix_min)) )
 mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 
 
-#################
-################# START OF THE DISPLAY
-#################
+#### start the trigger
+sst=True
+if sst:
+    p_port = serial.Serial('COM3', 115200, timeout=0)
+    p_port.write(b'00')
+    core.wait(0.2)
+    p_port.write(b'RR')
 
-win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
 
 
 ################# Instructions
-
 def disp_text():
     n=1
     while n==1:
@@ -182,12 +185,20 @@ def disp_text():
     #core.wait(delay) 
     
 
-
 margin_y = 0.3 * screen[1]
 side_y = ( screen[1] - 2*margin_y )/ 4
 
-MOUSE=event.Mouse(win=win, visible=False) 
 
+
+#################
+################# START OF THE DISPLAY
+#################
+
+win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
+p_port.write(b'10') #start instructions
+p_port.write(b'00')
+
+MOUSE=event.Mouse(win=win, visible=False) 
 
 Start_text=visual.TextStim(win=win, text='Bienvenido a nuestra prueba de memoria', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
 disp_text()    
@@ -221,10 +232,12 @@ disp_text()
 
 
 
-
 #TRIGGER####################################################################################################################### start experiment (0)
 TIME = core.Clock(); #overall time
 TIME.reset();
+
+p_port.write(b'11') #start trials
+p_port.write(b'00')
 
 for i in range(0,len(stimList)):    
     time_start_trial=TIME.getTime()
@@ -273,6 +286,8 @@ for i in range(0,len(stimList)):
     #CUE PERIOD 
     #TRIGGER####################################################################################################################### Presentation cue (1)
     presentation_att_cue_time= TIME.getTime(); 
+    p_port.write(b'01') ## 1 is cue
+    p_port.write(b'00')
     for frameN in range(frames_cue_present):
         CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
         CUE.draw();
@@ -296,6 +311,8 @@ for i in range(0,len(stimList)):
                 
         fixation();  #no circle during presentation (EEG problems?)  
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        p_port.write(b'02') #2 target
+        p_port.write(b'00')
         for frameN in range(frames_stim_present):
             target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
             fixation();
@@ -308,11 +325,12 @@ for i in range(0,len(stimList)):
         print(time_stim_presenta)
         end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
-
                 
     elif order==2:
         #TRIGGER####################################################################################################################### Presentation distractor (3)
         presentation_dist_time= TIME.getTime() #start of the trial unitil presentation
+        p_port.write(b'03') # 3 distractor
+        p_port.write(b'00')
         for frameN in range(frames_stim_present):
             Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
             fixation();
@@ -329,13 +347,16 @@ for i in range(0,len(stimList)):
     ############################# 
     #TRIGGER####################################################################################################################### start delay 1 (4)
     start_delay1= TIME.getTime()
+    p_port.write(b'04') # 4 start delay1
+    p_port.write(b'00')
     for frameN in range(frames_delay1):
         fixation(); 
         end_delay1 = TIME.getTime()
         win.flip(); 
         
     
-    
+    p_port.write(b'05') # 5 end delay1
+    p_port.write(b'00')
     start_delay1=round(start_delay1, decimals)
     end_delay1 = round(end_delay1, decimals)
     #############################
@@ -344,6 +365,8 @@ for i in range(0,len(stimList)):
     if order==1:
         #TRIGGER####################################################################################################################### Presentation distractor (3)
         presentation_dist_time= TIME.getTime() #start of the trial unitil presentation
+        p_port.write(b'03') # 3 distractor
+        p_port.write(b'00')
         for frameN in range(frames_stim_present):
             Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
             fixation();
@@ -358,6 +381,8 @@ for i in range(0,len(stimList)):
     elif order==2:
         fixation();  #no circle during presentation (EEG problems?)  
         presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        p_port.write(b'02') #2 target
+        p_port.write(b'00')
         for frameN in range(frames_stim_present):
             target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
             fixation();
@@ -376,13 +401,16 @@ for i in range(0,len(stimList)):
     ############################# 
     #TRIGGER####################################################################################################################### start delay 2 (5)
     start_delay2= TIME.getTime()
+    p_port.write(b'06') #start delay2
+    p_port.write(b'00')
     for frameN in range(frames_delay2):
         fixation(); 
         end_delay2 = TIME.getTime()
         win.flip(); 
         
     
-    
+    p_port.write(b'07') #end delay2
+    p_port.write(b'00')
     start_delay2=round(start_delay2, decimals)
     end_delay2 = round(end_delay2, decimals)
     #############################
@@ -395,6 +423,8 @@ for i in range(0,len(stimList)):
     #reaction time
     #TRIGGER####################################################################################################################### start response (6)
     start_response = TIME.getTime()   
+    p_port.write(b'08') #start response
+    p_port.write(b'00')
     start_response=round(start_response, decimals)
     while MOUSE.getPressed()[0]==0:
         fixation_response();
@@ -411,6 +441,8 @@ for i in range(0,len(stimList)):
         win.flip()
     
     #Angle response 
+    p_port.write(b'09') #response time
+    p_port.write(b'00')
     angle_save = getAngle(pos)
     if angle_save<0:
         angle_save = 360+ angle_save
@@ -436,6 +468,8 @@ for i in range(0,len(stimList)):
 Final_text=visual.TextStim(win=win, text='¡Muchas gracias!', pos=[-3,0], color=[1,1,1], units='pix', height=50) ##final text    
 Final_text.draw()
 win.flip()
+p_port.write(b'12') #end experiment
+p_port.write(b'00')
 core.wait(2) #display it for 2 seconds
 win.close() #close the windows
 
@@ -458,4 +492,19 @@ save_output(OUTPUT, filename)
 # df.to_excel(pathname) ## save the file
 
 ##
+
+### Relation triggers with events:
+####  1- cue
+####  2- target
+####  3- distractor
+####  4- start delay1
+####  5- end delay1
+####  6- start delay2
+####  7- end delay2
+####  8- start response
+####  9- response given
+####  10- start instructions
+####  11- start trials
+####  12- end experiment
+
 
