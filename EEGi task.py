@@ -171,8 +171,6 @@ frames_stim_present = int( presentation_period*1000/time_frame ) - frame_correct
 frames_cue_present = int( presentation_period_cue*1000/time_frame ) - frame_correction
 frames_pre_stim = int( pre_stim_period*1000/time_frame )- frame_correction
 
-
-
 ################# Instructions
 
 def disp_text():
