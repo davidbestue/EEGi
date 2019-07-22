@@ -151,7 +151,7 @@ while filename in os.listdir('results'): #in case it has the same name, add a nu
 from stim_generator import *
 stimList=pd.DataFrame(stims[1:,:])
 stimList.columns=stims[0,:]  ##coming from stim gernator.py
-stimList =stimList.iloc[:3, :]
+#stimList =stimList.iloc[:3, :]
 
 
 #list to append the results
