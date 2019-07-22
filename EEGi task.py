@@ -158,18 +158,16 @@ mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
 
 
-time_frame=[]
-for n in range(3000):
-    time_frame.append( win.flip() )
+time_frame_mean=[]
+for n in range(400):
+    time_frame_mean.append( win.flip() )
     
 
-win.close()
-
 #frames
-frame_correction = 0 #(2 frames to compensate for the lag, adjust depending on the computer)
+frame_correction = 2 #(2 frames to compensate for the lag, adjust depending on the computer)
 #refresh_rate=60
 #time_frame=1000/refresh_rate
-time_frame = np.mean(np.array([time_frame[i+1]- time_frame[i] for i in range(len(time_frame)-1)])) *1000
+time_frame = np.mean(np.array([time_frame_mean[i+1]- time_frame_mean[i] for i in range(len(time_frame_mean)-1)])) *1000
 frames_stim_present = int( presentation_period*1000/time_frame ) - frame_correction
 frames_cue_present = int( presentation_period_cue*1000/time_frame ) - frame_correction
 frames_pre_stim = int( pre_stim_period*1000/time_frame )- frame_correction
