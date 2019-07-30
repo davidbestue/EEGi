@@ -189,7 +189,7 @@ for n in range(200):
     
 
 #frames
-frame_correction = 1 #(2 frames to compensate for the lag, adjust depending on the computer)
+frame_correction = 1 ## correct beacause in the first frame the presented thing will not be showed
 #refresh_rate=60
 #time_frame=1000/refresh_rate
 time_frame = np.mean(np.array([time_frame_mean[i+1]- time_frame_mean[i] for i in range(len(time_frame_mean)-1)])) *1000
@@ -322,16 +322,13 @@ for i in range(0,len(stimList)):
     ############################# PRESENTATION PERIOD 1
     #############################       
     if order==1:
-        #TRIGGER####################################################################################################################### Presentation target (2)
-                
-        fixation();  #no circle during presentation (EEG problems?)  
-        #presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        #TRIGGER####################################################################################################################### Presentation target (2)                
         for frameN in range(frames_stim_present):
             if frameN ==0:
                 target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
                 fixation();
                 target.draw();
-                presentation_target_time = win.flip() 
+                presentation_target_time = win.flip() #in the first frame was not present, now it is (corrction needed)
             else: 
                 target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
                 fixation();
@@ -339,23 +336,28 @@ for i in range(0,len(stimList)):
                 end_presentation_target_time = win.flip() 
             
         
-        time_stim_presenta1 = end_presentation_target_time - presentation_target_time
-        print(time_stim_presenta1)
+        time_stim_presenta = end_presentation_target_time - presentation_target_time
+        print(time_stim_presenta)
         end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
 
                 
     elif order==2:
         #TRIGGER####################################################################################################################### Presentation distractor (3)
-        presentation_dist_time= TIME.getTime() #start of the trial unitil presentation
         for frameN in range(frames_stim_present):
-            Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
-            fixation();
-            Distractor.draw();
-            end_presentation_dist_time=TIME.getTime();
-            win.flip() 
-        
-                
+            if frameN ==0:
+                Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
+                fixation();
+                Distractor.draw();
+                presentation_dist_time= win.flip() #in the first frame was not present, now it is (corrction needed)
+            else:
+                Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
+                fixation();
+                Distractor.draw();
+                end_presentation_dist_time=win.flip()
+
+
+
         presentation_dist_time=round(presentation_dist_time, decimals) 
         end_presentation_dist_time=round(end_presentation_dist_time, decimals) 
     
