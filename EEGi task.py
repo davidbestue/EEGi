@@ -251,11 +251,11 @@ disp_text()
 
 
 #TRIGGER####################################################################################################################### start experiment (0)
-TIME = core.Clock(); #overall time
-TIME.reset();
+#TIME = core.Clock(); #overall time
+#TIME.reset();
 
 for i in range(0,len(stimList)):    
-    time_start_trial=TIME.getTime()
+    time_start_trial=win.flip()
     trial=stimList.iloc[i] #take a new trial everytime and restore the features of fixation           
     #take the relevant info from the trial 
     angle_target=float(trial['A_T'])
@@ -291,23 +291,27 @@ for i in range(0,len(stimList)):
     else:
         MOUSE=event.Mouse(win=win, visible=False)
         fixation();
-        win.flip();
+        time_fixation=win.flip();
                
     
     #Start the display time when the subject is fixated
-    time_fixation=TIME.getTime() #time you need to fixate
+    #time_fixation=TIME.getTime() #time you need to fixate
     time_to_fixate=round((time_fixation - time_start_trial) , decimals)
     
     #CUE PERIOD 
     #TRIGGER####################################################################################################################### Presentation cue (1)
     presentation_att_cue_time= TIME.getTime(); 
     for frameN in range(frames_cue_present):
-        CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
-        CUE.draw();
-        end_presentation_cue_time=TIME.getTime();
-        win.flip(); 
-    
-    
+        if frameN ==0:
+            CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
+            CUE.draw();
+            presentation_att_cue_time=  win.flip()
+        else:
+            CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
+            CUE.draw();
+            end_presentation_cue_time=win.flip();
+
+    ####
     presentation_att_cue_time=round(presentation_att_cue_time, decimals);
     end_presentation_cue_time=round(end_presentation_cue_time, decimals);
     
