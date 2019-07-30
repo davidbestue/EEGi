@@ -367,12 +367,13 @@ for i in range(0,len(stimList)):
     #TRIGGER####################################################################################################################### start delay 1 (4)
     start_delay1= TIME.getTime()
     for frameN in range(frames_delay1):
-        fixation(); 
-        end_delay1 = TIME.getTime()
-        win.flip(); 
-        
-    
-    
+        if frameN ==0:
+            fixation(); 
+            start_delay1= win.flip();
+        else:
+            fixation(); 
+            end_delay1 = win.flip();
+
     start_delay1=round(start_delay1, decimals)
     end_delay1 = round(end_delay1, decimals)
     #############################
