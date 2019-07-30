@@ -241,8 +241,6 @@ disp_text()
 
 
 
-#TRIGGER####################################################################################################################### start experiment (0)
-
 for i in range(0,len(stimList)):
     ###
     time_start_trial=win.flip()
