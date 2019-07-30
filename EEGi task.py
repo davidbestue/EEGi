@@ -158,7 +158,7 @@ if training == 'Yes':   ## if it is a training
     filename = name + '_train.xlsx'
     stimList =stimList.iloc[:3, :]
 elif training == 'No':   ## if it is not training
-    stimList =stimList.iloc[:5, :]
+    stimList =stimList.iloc[:, :]
 
 
 #list to append the results
@@ -451,7 +451,7 @@ for i in range(0,len(stimList)):
         fixation_response();
         win.flip()
         pass #wait for a button to be pressed
-            
+
     if MOUSE.getPressed()[0]==1:
         fixation_response();
         #TRIGGER####################################################################################################################### response given (7)
