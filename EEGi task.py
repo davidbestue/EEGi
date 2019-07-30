@@ -193,9 +193,9 @@ frame_correction = 0 #(2 frames to compensate for the lag, adjust depending on t
 #refresh_rate=60
 #time_frame=1000/refresh_rate
 time_frame = np.mean(np.array([time_frame_mean[i+1]- time_frame_mean[i] for i in range(len(time_frame_mean)-1)])) *1000
-frames_stim_present = int( presentation_period*1000/time_frame ) - frame_correction
-frames_cue_present = int( presentation_period_cue*1000/time_frame ) - frame_correction
-frames_pre_stim = int( pre_stim_period*1000/time_frame )- frame_correction
+frames_stim_present = int( round(presentation_period*1000/time_frame ) ) #- frame_correction
+frames_cue_present = int( round(presentation_period_cue*1000/time_frame ) ) #- frame_correction
+frames_pre_stim = int( round( pre_stim_period*1000/time_frame ) ) #- frame_correction
 
 ################# Instructions
 
@@ -339,8 +339,8 @@ for i in range(0,len(stimList)):
                 end_presentation_target_time = win.flip() 
             
         
-        time_stim_presenta = end_presentation_target_time - presentation_target_time
-        print(time_stim_presenta)
+        time_stim_presenta1 = end_presentation_target_time - presentation_target_time
+        print(time_stim_presenta1)
         end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
 
