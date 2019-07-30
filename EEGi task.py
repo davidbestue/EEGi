@@ -40,7 +40,6 @@ width, length = screen[0], screen[1]
 #inches of the screen diagonal (check on All settings --> Displays or internet: http://howbigismyscreen.co/ )
 #Has de vigilar segun si es full screen o no... siempre será la diagonal de la screen que aparezca!!!
 diagonal= 22.05  #### in inches!!!!! ## screen psycho 22.05 (47.4cm x 29,8cm --> 56 cm de diagonal--> 56cm * 0.398 inches/cm = 22.05 inches)
-
 pix_per_inch=sqrt(width**2+length**2)/diagonal
 pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
  
@@ -140,7 +139,6 @@ else:
 
 
 
-
 session=1
 filename =  name + '_' + str(session) + '.xlsx'
 
@@ -176,7 +174,6 @@ mouse_fix_max=int ( cm2pix(float(mouse_fix_max)) )
 #################
 
 win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a psychopy window
-
 
 time_frame_mean=[]
 for n in range(200):
