@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 07 12:56:14 2016
-
 @author: David Bestue
 """
 #To run this code you have to run in a Terminal  "python WM task.py 'name and session' " Open a terminal and move to the path this script
@@ -241,10 +240,7 @@ disp_text()
 
 
 
-
 #TRIGGER####################################################################################################################### start experiment (0)
-#TIME = core.Clock(); #overall time
-#TIME.reset();
 
 for i in range(0,len(stimList)):
     ###
