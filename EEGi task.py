@@ -300,7 +300,6 @@ for i in range(0,len(stimList)):
     
     #CUE PERIOD 
     #TRIGGER####################################################################################################################### Presentation cue (1)
-    presentation_att_cue_time= TIME.getTime(); 
     for frameN in range(frames_cue_present):
         if frameN ==0:
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
