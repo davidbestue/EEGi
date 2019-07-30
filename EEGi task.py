@@ -451,7 +451,7 @@ for i in range(0,len(stimList)):
         fixation_response();
         win.flip()
         pass #wait for a button to be pressed
-    
+            
     if MOUSE.getPressed()[0]==1:
         fixation_response();
         #TRIGGER####################################################################################################################### response given (7)
