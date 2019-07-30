@@ -482,7 +482,6 @@ win.flip()
 core.wait(2) #display it for 2 seconds
 win.close() #close the windows
 
-
 #Save output
 save_output(OUTPUT, filename)
 
