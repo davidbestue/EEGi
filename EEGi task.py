@@ -144,7 +144,6 @@ else:
 
 
 
-
 session=1
 filename =  name + '_' + str(session) + '.xlsx'
 
@@ -326,13 +325,18 @@ for i in range(0,len(stimList)):
         #TRIGGER####################################################################################################################### Presentation target (2)
                 
         fixation();  #no circle during presentation (EEG problems?)  
-        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
+        #presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         for frameN in range(frames_stim_present):
-            target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
-            fixation();
-            target.draw();
-            end_presentation_target_time=TIME.getTime();
-            win.flip() 
+            if frameN ==0:
+                target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
+                fixation();
+                target.draw();
+                presentation_target_time = win.flip() 
+            else: 
+                target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
+                fixation();
+                target.draw();
+                end_presentation_target_time = win.flip() 
             
         
         time_stim_presenta = end_presentation_target_time - presentation_target_time
