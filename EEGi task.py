@@ -441,7 +441,8 @@ for i in range(0,len(stimList)):
     MOUSE.clickReset()
     #reaction time
     #TRIGGER####################################################################################################################### start response (6)
-    start_response = TIME.getTime()   
+    fixation_response();
+    start_response =  win.flip()
     start_response=round(start_response, decimals)
     while MOUSE.getPressed()[0]==0:
         fixation_response();
@@ -451,11 +452,10 @@ for i in range(0,len(stimList)):
     if MOUSE.getPressed()[0]==1:
         fixation_response();
         #TRIGGER####################################################################################################################### response given (7)
-        response_time = TIME.getTime()
-        response_time=round(response_time, decimals)
         pos=MOUSE.getPos()
+        response_time = win.flip()
+        response_time=round(response_time, decimals)
         reaction_time = response_time - start_response
-        win.flip()
     
     #Angle response 
     angle_save = getAngle(pos)
