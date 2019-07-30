@@ -127,13 +127,13 @@ def fixation_circle():
 
 
 
-myDlg = gui.Dlg(title="JWP's experiment")
+myDlg = gui.Dlg(title="Memoy Experiment")
 myDlg.addText('Subject info')
 myDlg.addField('Name:')
 #myDlg.addField('Age:', 21)
 myDlg.addText('Experiment Info')
 #myDlg.addField('Grating Ori:',45)
-myDlg.addField('Training:', choices=["Yes", "No"])
+myDlg.addField('Training:', choices=["No", "Yes"])
 ok_data = myDlg.show()  # show dialog and wait for OK or Cancel
 if myDlg.OK:  # or if ok_data is not None
     name= ok_data[0]
