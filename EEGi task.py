@@ -5,7 +5,8 @@ Created on Mon Nov 07 12:56:14 2016
 """
 #To run this code you have to run in a Terminal  "python WM task.py 'name and session' " Open a terminal and move to the path this script
 #Requires 1 directory:  results
-#  
+
+ 
 # Import Libraries 
 from psychopy import visual, core, event, gui
 from math import cos, sin, radians, sqrt, atan2, pi
@@ -289,7 +290,6 @@ for i in range(0,len(stimList)):
     time_to_fixate=round((time_fixation - time_start_trial) , decimals)
     
     #CUE PERIOD 
-    #TRIGGER####################################################################################################################### Presentation cue (1)
     for frameN in range(frames_cue_present):
         if frameN ==0:
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
@@ -315,7 +315,6 @@ for i in range(0,len(stimList)):
     ############################# PRESENTATION PERIOD 1
     #############################       
     if order==1:
-        #TRIGGER####################################################################################################################### Presentation target (2)                
         for frameN in range(frames_stim_present):
             if frameN ==0:
                 target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
@@ -337,7 +336,6 @@ for i in range(0,len(stimList)):
 
                 
     elif order==2:
-        #TRIGGER####################################################################################################################### Presentation distractor (3)
         for frameN in range(frames_stim_present):
             if frameN ==0:
                 Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
@@ -360,7 +358,6 @@ for i in range(0,len(stimList)):
     #############################
     ############################# DELAY 1
     ############################# 
-    #TRIGGER####################################################################################################################### start delay 1 (4)
     for frameN in range(frames_delay1):
         if frameN ==0:
             fixation(); 
@@ -377,7 +374,6 @@ for i in range(0,len(stimList)):
     ############################# PRESENTATION PERIOD 2
     #############################       
     if order==1:
-        #TRIGGER####################################################################################################################### Presentation distractor (3)
         for frameN in range(frames_stim_present):
             if frameN ==0:
                 Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
@@ -419,7 +415,6 @@ for i in range(0,len(stimList)):
     #############################
     ############################# DELAY 2
     ############################# 
-    #TRIGGER####################################################################################################################### start delay 2 (5)
     for frameN in range(frames_delay2):
         if frameN ==0:
             fixation(); 
