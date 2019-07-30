@@ -115,7 +115,7 @@ def fixation_circle():
 
 
 #### start the trigger
-sst=True
+sst=False
 if sst:
     p_port = serial.Serial('COM3', 115200, timeout=0)
     p_port.write(b'00')
@@ -285,8 +285,6 @@ for i in range(0,len(stimList)):
         y_mouse=pos_mouse[1]
         fixation(); 
         win.flip();
-            p_port.write(b'11') if sst == True else print('no triggers') ## start of the trial
-    p_port.write(b'00') if sst == True else print('no triggers')
     else:
         MOUSE=event.Mouse(win=win, visible=False)
         fixation();
@@ -455,6 +453,8 @@ for i in range(0,len(stimList)):
     #TRIGGER###################################################################################################################### start response (6)
     fixation_response();
     start_response =  win.flip()
+    p_port.write(b'06') if sst == True else print('no triggers for start response') ## start of response
+    p_port.write(b'00') if sst == True else print('')   
     start_response=round(start_response, decimals)
     while MOUSE.getPressed()[0]==0:
         fixation_response();
@@ -466,6 +466,8 @@ for i in range(0,len(stimList)):
         #TRIGGER####################################################################################################################### response given (7)
         pos=MOUSE.getPos()
         response_time = win.flip()
+        p_port.write(b'07') if sst == True else print('no triggers for response') ## response time
+        p_port.write(b'00') if sst == True else print('')   
         response_time=round(response_time, decimals)
         reaction_time = response_time - start_response
     
@@ -518,3 +520,12 @@ save_output(OUTPUT, filename)
 
 ##
 
+
+### Triggers
+# 1 - Cue presentation time
+# 2 - Target presentation
+# 3 - Distractor presentation 
+# 4 - Start delay 1 
+# 5 - Start delay 2
+# 6 - Start response 
+# 7 - Response time
