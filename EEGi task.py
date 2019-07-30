@@ -187,12 +187,10 @@ time_frame_mean=[]
 for n in range(200):
     time_frame_mean.append( win.flip() )
     
+time_frame = np.mean(np.array([time_frame_mean[i+1]- time_frame_mean[i] for i in range(len(time_frame_mean)-1)])) *1000
 
 #frames
-frame_correction = 1 ## correct beacause in the first frame the presented thing will not be showed
-#refresh_rate=60
-#time_frame=1000/refresh_rate
-time_frame = np.mean(np.array([time_frame_mean[i+1]- time_frame_mean[i] for i in range(len(time_frame_mean)-1)])) *1000
+frame_correction = 1 ## correct beacause in the first frame the presented thing will not be seen until the end (you have to add the lost first 16ms)
 frames_stim_present = int( round(presentation_period*1000/time_frame ) ) + frame_correction
 frames_cue_present = int( round(presentation_period_cue*1000/time_frame ) ) + frame_correction
 frames_pre_stim = int( round( pre_stim_period*1000/time_frame ) ) + frame_correction
