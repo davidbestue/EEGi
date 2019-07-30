@@ -339,7 +339,6 @@ for i in range(0,len(stimList)):
             
         
         time_stim_presenta = end_presentation_target_time - presentation_target_time
-        print(time_stim_presenta)
         end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
 
@@ -421,7 +420,6 @@ for i in range(0,len(stimList)):
         
         
         time_stim_presenta = end_presentation_target_time - presentation_target_time
-        print(time_stim_presenta)
         end_presentation_target_time = round(end_presentation_target_time, decimals);
         presentation_target_time=round(presentation_target_time, decimals);
     
