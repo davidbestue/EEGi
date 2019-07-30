@@ -184,12 +184,12 @@ win = visual.Window(size=screen, units="pix", fullscr=True, color=grey) #Open a 
 
 
 time_frame_mean=[]
-for n in range(400):
+for n in range(200):
     time_frame_mean.append( win.flip() )
     
 
 #frames
-frame_correction = 2 #(2 frames to compensate for the lag, adjust depending on the computer)
+frame_correction = 0 #(2 frames to compensate for the lag, adjust depending on the computer)
 #refresh_rate=60
 #time_frame=1000/refresh_rate
 time_frame = np.mean(np.array([time_frame_mean[i+1]- time_frame_mean[i] for i in range(len(time_frame_mean)-1)])) *1000
