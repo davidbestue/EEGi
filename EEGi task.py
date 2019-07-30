@@ -365,7 +365,6 @@ for i in range(0,len(stimList)):
     ############################# DELAY 1
     ############################# 
     #TRIGGER####################################################################################################################### start delay 1 (4)
-    start_delay1= TIME.getTime()
     for frameN in range(frames_delay1):
         if frameN ==0:
             fixation(); 
@@ -381,27 +380,34 @@ for i in range(0,len(stimList)):
     #############################       
     if order==1:
         #TRIGGER####################################################################################################################### Presentation distractor (3)
-        presentation_dist_time= TIME.getTime() #start of the trial unitil presentation
         for frameN in range(frames_stim_present):
-            Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))            
-            fixation();
-            Distractor.draw();
-            end_presentation_dist_time=TIME.getTime();
-            win.flip() 
+            if frameN ==0:
+                Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
+                fixation();
+                Distractor.draw();
+                presentation_dist_time= win.flip() #in the first frame was not present, now it is (corrction needed)
+            else:
+                Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
+                fixation();
+                Distractor.draw();
+                end_presentation_dist_time=win.flip()
         
                 
         presentation_dist_time=round(presentation_dist_time, decimals)
         end_presentation_dist_time=round(end_presentation_dist_time, decimals) 
         
     elif order==2:
-        fixation();  #no circle during presentation (EEG problems?)  
-        presentation_target_time= TIME.getTime(); #start of the trial unitil presentation
         for frameN in range(frames_stim_present):
-            target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
-            fixation();
-            target.draw();
-            end_presentation_target_time=TIME.getTime();
-            win.flip() 
+            if frameN ==0:
+                target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
+                fixation();
+                target.draw();
+                presentation_target_time = win.flip() #in the first frame was not present, now it is (corrction needed)
+            else: 
+                target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
+                fixation();
+                target.draw();
+                end_presentation_target_time = win.flip() 
         
         
         time_stim_presenta = end_presentation_target_time - presentation_target_time
@@ -413,16 +419,17 @@ for i in range(0,len(stimList)):
     ############################# DELAY 2
     ############################# 
     #TRIGGER####################################################################################################################### start delay 2 (5)
-    start_delay2= TIME.getTime()
     for frameN in range(frames_delay2):
-        fixation(); 
-        end_delay2 = TIME.getTime()
-        win.flip(); 
-        
-    
-    
+        if frameN ==0:
+            fixation(); 
+            start_delay2= win.flip();
+        else:
+            fixation(); 
+            end_delay2 = win.flip();
+
     start_delay2=round(start_delay2, decimals)
     end_delay2 = round(end_delay2, decimals)
+
     #############################
     ############################# Response by clicking
     ############################# 
