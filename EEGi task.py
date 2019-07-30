@@ -441,7 +441,6 @@ for i in range(0,len(stimList)):
     MOUSE=event.Mouse(win=win, visible=True) 
     MOUSE.clickReset()
     #reaction time
-    #TRIGGER###################################################################################################################### start response (6)
     fixation_response();
     start_response =  win.flip()
     p_port.write(b'06') if sst == True else print('no trigger for start response') ## start of response
@@ -454,7 +453,6 @@ for i in range(0,len(stimList)):
 
     if MOUSE.getPressed()[0]==1:
         fixation_response();
-        #TRIGGER####################################################################################################################### response given (7)
         pos=MOUSE.getPos()
         response_time = win.flip()
         p_port.write(b'07') if sst == True else print('no trigger for response') ## response time
@@ -490,8 +488,6 @@ Final_text.draw()
 win.flip()
 core.wait(2) #display it for 2 seconds
 win.close() #close the windows
-
-#TRIGGER####################################################################################################################### end task (8)
 
 
 #Save output
