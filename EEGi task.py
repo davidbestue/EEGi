@@ -509,9 +509,6 @@ save_output(OUTPUT, filename)
 # pathname =  root + '\\results\\' + filename #decide the path to create the xlsx
 # df.to_excel(pathname) ## save the file
 
-##
-
-
 ### Triggers
 # 1 - Cue presentation time
 # 2 - Target presentation
