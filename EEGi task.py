@@ -44,8 +44,6 @@ diagonal= 22.05  #### in inches!!!!! ## screen psycho 22.05 (47.4cm x 29,8cm -->
 pix_per_inch=sqrt(width**2+length**2)/diagonal
 pix_per_cm= pix_per_inch /2.54 #2,54 are the inches per cm
  
-
-
 #others
 decimals=3
 
@@ -116,17 +114,16 @@ def fixation_circle():
 
 
 
+#### start the trigger
+sst=True
+if sst:
+    p_port = serial.Serial('COM3', 115200, timeout=0)
+    p_port.write(b'00')
+    core.wait(0.2)
+    p_port.write(b'RR')
+
 
 ## Subject name and session (open a box)
-# if __name__ == "__main__":
-#     info = {'Subject':'Subject'}
-#     infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
-#     if infoDlg.OK:
-#         name = info['Subject']
-#     if infoDlg.OK==False: core.quit() #user pressed cancel
-
-
-
 myDlg = gui.Dlg(title="Memoy Experiment")
 myDlg.addText('Subject info')
 myDlg.addField('Name:')
