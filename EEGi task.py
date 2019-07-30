@@ -439,7 +439,7 @@ for i in range(0,len(stimList)):
     MOUSE=event.Mouse(win=win, visible=True) 
     MOUSE.clickReset()
     #reaction time
-    #TRIGGER####################################################################################################################### start response (6)
+    #TRIGGER###################################################################################################################### start response (6)
     fixation_response();
     start_response =  win.flip()
     start_response=round(start_response, decimals)
