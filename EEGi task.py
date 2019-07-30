@@ -471,7 +471,7 @@ for i in range(0,len(stimList)):
           time_start_trial, time_to_fixate, presentation_att_cue_time, end_presentation_cue_time, presentation_target_time,
           end_presentation_target_time, presentation_dist_time, end_presentation_dist_time, start_delay1, end_delay1, start_delay2,
           end_delay2, start_response, response_time,
-          name, session]) ## 21 columns
+          name, session]) 
           
           
 
