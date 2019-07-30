@@ -145,11 +145,6 @@ else:
 
 
 
-
-
-
-
-
 session=1
 filename =  name + '_' + str(session) + '.xlsx'
 
@@ -157,6 +152,10 @@ while filename in os.listdir('results'): #in case it has the same name, add a nu
     session +=1
     filename =  filename.split('.')[0].split('_')[0]  + '_' + str(session) + '.xlsx'
     
+
+if training == 'Yes':   ## if it is a training
+    filename = name + '_train.xlsx'
+
 
    
 #Select the file with the trials 
