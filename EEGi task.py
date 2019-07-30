@@ -486,18 +486,6 @@ win.close() #close the windows
 #Save output
 save_output(OUTPUT, filename)
 
-# df = pd.DataFrame(OUTPUT) #create a dataframe (iff you Escape, you can still run this last part)
-# index_columns=np.array(['A_T', 'A_Dist', 'delay1', 'delay2', 'distance', 'order', 'cw_ccw', 'A_R', 'A_err', 'RT',
-#           'time_start_trial', 'time_to_fixate', 'presentation_att_cue_time', 'end_presentation_cue_time', 'presentation_target_time', 
-#           'end_presentation_target_time', 'presentation_dist_time', 'end_presentation_dist_time', 'start_delay1', 'end_delay1', 'start_delay2', 
-#           'end_delay2', 'start_response', 'response_time',
-#           'name', 'session']) 
-
-
-# df.columns = index_columns #add the columns
-# pathname =  root + '\\results\\' + filename #decide the path to create the xlsx
-# df.to_excel(pathname) ## save the file
-
 ### Triggers
 # 1 - Cue presentation time
 # 2 - Target presentation
