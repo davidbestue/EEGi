@@ -118,12 +118,35 @@ def fixation_circle():
 
 
 ## Subject name and session (open a box)
-if __name__ == "__main__":
-    info = {'Subject':'Subject'}
-    infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
-    if infoDlg.OK:
-        name = info['Subject']
-    if infoDlg.OK==False: core.quit() #user pressed cancel
+# if __name__ == "__main__":
+#     info = {'Subject':'Subject'}
+#     infoDlg = gui.DlgFromDict(dictionary=info, title='WM Experiment')
+#     if infoDlg.OK:
+#         name = info['Subject']
+#     if infoDlg.OK==False: core.quit() #user pressed cancel
+
+
+
+myDlg = gui.Dlg(title="JWP's experiment")
+myDlg.addText('Subject info')
+myDlg.addField('Name:')
+#myDlg.addField('Age:', 21)
+myDlg.addText('Experiment Info')
+#myDlg.addField('Grating Ori:',45)
+myDlg.addField('Training:', choices=["Yes", "No"])
+ok_data = myDlg.show()  # show dialog and wait for OK or Cancel
+if myDlg.OK:  # or if ok_data is not None
+    name= ok_data[0]
+    training = ok_data[1]
+else:
+    print('user cancelled')
+
+
+
+
+
+
+
 
 
 
