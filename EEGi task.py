@@ -302,7 +302,7 @@ for i in range(0,len(stimList)):
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
             CUE.draw();
             presentation_att_cue_time=  win.flip()
-            p_port.write(b'01') if sst == True else print('no triggers for cue') ## presentation of the cue.
+            p_port.write(b'01') if sst == True else print('no trigger for cue') ## presentation of the cue.
             p_port.write(b'00') if sst == True else print('')
         else:
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
@@ -329,7 +329,7 @@ for i in range(0,len(stimList)):
                 fixation();
                 target.draw();
                 presentation_target_time = win.flip() #in the first frame was not present, now it is (corrction needed)
-                p_port.write(b'02') if sst == True else print('no triggers for target') ## presentation of the target.
+                p_port.write(b'02') if sst == True else print('no trigger for target') ## presentation of the target.
                 p_port.write(b'00') if sst == True else print('')
             else: 
                 target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
@@ -351,7 +351,7 @@ for i in range(0,len(stimList)):
                 fixation();
                 Distractor.draw();
                 presentation_dist_time= win.flip() #in the first frame was not present, now it is (corrction needed)
-                p_port.write(b'03') if sst == True else print('no triggers for distractor') ## presentation of the distractor.
+                p_port.write(b'03') if sst == True else print('no trigger for distractor') ## presentation of the distractor.
                 p_port.write(b'00') if sst == True else print('')                
             else:
                 Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
@@ -372,7 +372,7 @@ for i in range(0,len(stimList)):
         if frameN ==0:
             fixation(); 
             start_delay1= win.flip();
-            p_port.write(b'04') if sst == True else print('no triggers for delay1') ## start of delay1.
+            p_port.write(b'04') if sst == True else print('no trigger for delay1') ## start of delay1.
             p_port.write(b'00') if sst == True else print('')
         else:
             fixation(); 
@@ -391,7 +391,7 @@ for i in range(0,len(stimList)):
                 fixation();
                 Distractor.draw();
                 presentation_dist_time= win.flip() #in the first frame was not present, now it is (corrction needed)
-                p_port.write(b'03') if sst == True else print('no triggers for distractor') ## presentation of the target.
+                p_port.write(b'03') if sst == True else print('no trigger for distractor') ## presentation of the target.
                 p_port.write(b'00') if sst == True else print('')                     
             else:
                 Distractor= visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_Dist, Y_Dist))       
@@ -410,7 +410,7 @@ for i in range(0,len(stimList)):
                 fixation();
                 target.draw();
                 presentation_target_time = win.flip() #in the first frame was not present, now it is (corrction needed)
-                p_port.write(b'02') if sst == True else print('no triggers for target') ## presentation of the target.
+                p_port.write(b'02') if sst == True else print('no trigger for target') ## presentation of the target.
                 p_port.write(b'00') if sst == True else print('')                
             else: 
                 target=visual.PatchStim(win, mask='circle', color= black, tex=None, size=cm2pix(size_stim), pos=(X_T, Y_T))       
@@ -431,7 +431,7 @@ for i in range(0,len(stimList)):
         if frameN ==0:
             fixation(); 
             start_delay2= win.flip();
-            p_port.write(b'05') if sst == True else print('no triggers for delay2') ## start of delay2.
+            p_port.write(b'05') if sst == True else print('no trigger for delay2') ## start of delay2.
             p_port.write(b'00') if sst == True else print('')            
         else:
             fixation(); 
@@ -451,7 +451,7 @@ for i in range(0,len(stimList)):
     #TRIGGER###################################################################################################################### start response (6)
     fixation_response();
     start_response =  win.flip()
-    p_port.write(b'06') if sst == True else print('no triggers for start response') ## start of response
+    p_port.write(b'06') if sst == True else print('no trigger for start response') ## start of response
     p_port.write(b'00') if sst == True else print('')   
     start_response=round(start_response, decimals)
     while MOUSE.getPressed()[0]==0:
@@ -464,7 +464,7 @@ for i in range(0,len(stimList)):
         #TRIGGER####################################################################################################################### response given (7)
         pos=MOUSE.getPos()
         response_time = win.flip()
-        p_port.write(b'07') if sst == True else print('no triggers for response') ## response time
+        p_port.write(b'07') if sst == True else print('no trigger for response') ## response time
         p_port.write(b'00') if sst == True else print('')   
         response_time=round(response_time, decimals)
         reaction_time = response_time - start_response
