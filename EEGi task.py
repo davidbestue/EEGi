@@ -153,8 +153,7 @@ while filename in os.listdir('results'): #in case it has the same name, add a nu
     filename =  filename.split('.')[0].split('_')[0]  + '_' + str(session) + '.xlsx'
     
 
-if training == 'Yes':   ## if it is a training
-    filename = name + '_train.xlsx'
+
 
 
    
@@ -162,7 +161,13 @@ if training == 'Yes':   ## if it is a training
 from stim_generator import *
 stimList=pd.DataFrame(stims[1:,:])
 stimList.columns=stims[0,:]  ##coming from stim gernator.py
-stimList =stimList.iloc[:3, :]
+
+
+if training == 'Yes':   ## if it is a training
+    filename = name + '_train.xlsx'
+    stimList =stimList.iloc[:3, :]
+elif training == 'No':   ## if it is not training
+    stimList =stimList.iloc[:5, :]
 
 
 #list to append the results
