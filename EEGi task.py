@@ -151,8 +151,6 @@ while filename in os.listdir('results'): #in case it has the same name, add a nu
 
 
 
-
-   
 #Select the file with the trials 
 from stim_generator import *
 stimList=pd.DataFrame(stims[1:,:])
@@ -251,8 +249,10 @@ disp_text()
 #TIME = core.Clock(); #overall time
 #TIME.reset();
 
-for i in range(0,len(stimList)):    
+for i in range(0,len(stimList)):
+    ###
     time_start_trial=win.flip()
+    ###
     trial=stimList.iloc[i] #take a new trial everytime and restore the features of fixation           
     #take the relevant info from the trial 
     angle_target=float(trial['A_T'])
@@ -285,6 +285,8 @@ for i in range(0,len(stimList)):
         y_mouse=pos_mouse[1]
         fixation(); 
         win.flip();
+            p_port.write(b'11') if sst == True else print('no triggers') ## start of the trial
+    p_port.write(b'00') if sst == True else print('no triggers')
     else:
         MOUSE=event.Mouse(win=win, visible=False)
         fixation();
@@ -302,6 +304,8 @@ for i in range(0,len(stimList)):
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
             CUE.draw();
             presentation_att_cue_time=  win.flip()
+            p_port.write(b'11') if sst == True else print('no triggers for cue') ## presentation of the cue
+            p_port.write(b'00') if sst == True else print('')
         else:
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
             CUE.draw();
