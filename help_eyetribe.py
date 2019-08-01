@@ -31,7 +31,7 @@ gaze_dot_red =visual.GratingStim(win,tex=None, mask="gauss",
 fixation = visual.ShapeStim(win,
     vertices=((0, -100), (0, 100), (0,0), (-100,0), (100, 0)),
     lineWidth=3,
-    pos=(0,0 ),
+    pos=(0,0 ), 
     closeShape=False,
     lineColor='black'
 )

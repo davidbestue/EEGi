@@ -16,7 +16,7 @@ participant='dl.txt'
 
 win = visual.Window([200,100], mon='SonyG500')
 
-dataFileEye=open(participant)
+dataFileEye=open(participant, 'w')
 iohub_tracker_class_path = 'eyetracker.hw.theeyetribe.EyeTracker'
 eyetracker_config = dict()
 eyetracker_config['name'] = 'tracker'

@@ -20,9 +20,13 @@ eyeTracker=True
 def secToFr(s):
     fr=int(round(s*hz))
     return fr 
+
+
 def frToSec(fr):
     s=fr/hz
     return s 
+
+
 def getResponse(keys, eyeTracker):
     thisResp=None
     while thisResp==None:
@@ -45,6 +49,13 @@ def getResponse(keys, eyeTracker):
 participant='dl'
 dataFile=openDataFile(participant)
 
+
+
+win = visual.Window([200,100], mon='SonyG500')
+
+
+
+
 if eyeTracker:
     dataFileEye=openDataFile2(participant)
     iohub_tracker_class_path = 'eyetracker.hw.theeyetribe.EyeTracker'
@@ -54,6 +65,12 @@ if eyeTracker:
     tracker = io.devices.tracker
 else:
     io = launchHubServer(psychopy_monitor_name='sonye200')
+
+
+
+
+
+
 
 display = io.devices.display
 keyboard = io.devices.keyboard
