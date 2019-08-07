@@ -133,16 +133,13 @@ if eyetra == True:
     PRESENTATION=15
     BLINK_PERIOD=15
     RESPONSE_MAX=600
-
-
-
-
-
-disp = libscreen.Display(disptype='psychopy',units='pix')
-win = pygaze.expdisplay
-win.monitor.setSizePix((1600,900))
-tracker = eyetracker.EyeTracker(disp,trackertype=settings.TRACKERTYPE)
-tracker.start_recording()    
+    #
+    disp = libscreen.Display(disptype='psychopy',units='pix')
+    win = pygaze.expdisplay
+    win.monitor.setSizePix((1600,900))
+    tracker = eyetracker.EyeTracker(disp,trackertype=settings.TRACKERTYPE)
+    tracker.start_recording()    
+    tracker.calibrate()
 
 
 
