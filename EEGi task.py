@@ -13,6 +13,8 @@ from math import cos, sin, radians, sqrt, atan2, pi
 import numpy as np
 import os
 import pandas as pd
+import pygaze
+from pygaze import *
 
 root = os.getcwd() #root
 
@@ -110,6 +112,40 @@ def fixation_circle():
     circ.draw();
     fixation_cross=visual.TextStim(win=win, text='+', pos=[0, 0], wrapWidth=length/20,  color=black, units='pix', height=length/20)
     fixation_cross.draw(); 
+
+
+
+
+
+#### Eye traker
+eyetra = False
+if eyetra == True:
+    pygaze.settings.TRACKERTYPE = "eyetribe"                                              # eyetracker stuff
+    pygaze.settings.DUMMYMODE = False
+    pygaze.settings.FULLSCREEN = True
+    pygaze.settings.MOUSEVISIBLE  = False
+    pygaze.settings.DISPSIZE = (1600,900)
+    gaze_on = True
+    center = [settings.DISPSIZE[0]/2,settings.DISPSIZE[1]/2]
+    tracker_status = False
+    # TIMES
+    FIXATION=60 # frames, 1 frame = 16.7 ms
+    PRESENTATION=15
+    BLINK_PERIOD=15
+    RESPONSE_MAX=600
+
+
+
+
+
+disp = libscreen.Display(disptype='psychopy',units='pix')
+win = pygaze.expdisplay
+win.monitor.setSizePix((1600,900))
+tracker = eyetracker.EyeTracker(disp,trackertype=settings.TRACKERTYPE)
+tracker.start_recording()    
+
+
+
 
 
 
