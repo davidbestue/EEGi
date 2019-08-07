@@ -124,9 +124,9 @@ if eyetra == True:
     pygaze.settings.DUMMYMODE = False
     pygaze.settings.FULLSCREEN = True
     pygaze.settings.MOUSEVISIBLE  = False
-    pygaze.settings.DISPSIZE = (1600,900)
+    pygaze.settings.DISPSIZE = (screen[0],screen[1])
     gaze_on = True
-    center = [settings.DISPSIZE[0]/2,settings.DISPSIZE[1]/2]
+    center = [pygaze.settings.DISPSIZE[0]/2,pygaze.settings.DISPSIZE[1]/2]
     tracker_status = False
     # TIMES
     FIXATION=60 # frames, 1 frame = 16.7 ms
@@ -134,10 +134,10 @@ if eyetra == True:
     BLINK_PERIOD=15
     RESPONSE_MAX=600
     #
-    disp = libscreen.Display(disptype='psychopy',units='pix')
+    disp = pygaze.display.Display(disptype='psychopy',units='pix')
     win = pygaze.expdisplay
     win.monitor.setSizePix((1600,900))
-    tracker = eyetracker.EyeTracker(disp,trackertype=settings.TRACKERTYPE)
+    tracker = pygaze.eyetracker.EyeTracker(disp,trackertype=pygaze.settings.TRACKERTYPE)
     tracker.start_recording()    
     tracker.calibrate()
 
