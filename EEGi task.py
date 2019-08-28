@@ -241,7 +241,6 @@ side_y = ( screen[1] - 2*margin_y )/ 4
 
 MOUSE=event.Mouse(win=win, visible=False) 
 
-
 Start_text=visual.TextStim(win=win, text='Bienvenido a nuestra prueba de memoria', pos=[0, 0], wrapWidth=screen[0]/2, color=white, units='pix', height=side_y/3)   
 disp_text()    
 
