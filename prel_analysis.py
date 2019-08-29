@@ -12,8 +12,16 @@ import os
 root = os.path.normpath(os.getcwd() + 3*( os.sep + os.pardir ) ) 												# root 3 directories back
 edf_path = os.path.join( root , 'Downloads', 'X_ X_9601c6f8-0928-4fca-bb4c-d809d2efa86d.EDF')					# path of edf file
 
-raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
+raw = mne.io.read_raw_edf(edf_path).crop(570, 600).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
+#raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 print(raw.info)
+
+
+
+import numpy as np     
+import pandas as pd
+df = pd.DataFrame(raw.get_data().transpose()) 
+df.columns = raw.ch_names
 
 
 start, stop = raw.time_as_index([100, 200])  # 100 s to 115 s data segment
@@ -36,6 +44,12 @@ print_dir_tree(data_dir)
 #edf_path = eegbci.load_data(subject=1, runs=6)[0]
 edf_path = os.path.join(data_dir,'X_ X_9601c6f8-0928-4fca-bb4c-d809d2efa86d.EDF') 
 print(edf_path)
+
+
+raw = mne.io.read_raw_edf(edf_path).crop(570, 600).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
+print(raw.info
+
+
 #raw = mne.io.read_raw_edf(edf_path, preload=False) # , stim_channel="TRIG"
 
 #loading and cropping data for this experiment
