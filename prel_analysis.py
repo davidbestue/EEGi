@@ -6,7 +6,7 @@ from mne.datasets import eegbci
 from mne_bids import write_raw_bids, make_bids_basename
 from mne_bids.utils import print_dir_tree
 
-
+import mne
 import os
 
 root = os.path.normpath(os.getcwd() + 3*( os.sep + os.pardir ) ) 												# root 3 directories back
@@ -14,9 +14,6 @@ edf_path = os.path.join( root , 'Downloads', 'X_ X_9601c6f8-0928-4fca-bb4c-d809d
 
 raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 print(raw.info)
-
-
-
 
 
 mne_dir = os.path.join('Volumes','ALEX_EXT', 'iEEG', 'PreDCN')
@@ -36,8 +33,7 @@ print(raw.info)
 
 
 #raw.crop(570, 3740) 
-
-raw.resample(1000, npad='auto')
+#raw.resample(1000, npad='auto')
 
 raw.ch_names 
 
