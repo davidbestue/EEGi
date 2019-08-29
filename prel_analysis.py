@@ -16,6 +16,23 @@ raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, n
 print(raw.info)
 
 
+start, stop = raw.time_as_index([100, 200])  # 100 s to 115 s data segment
+data, times = raw[:, start:stop]
+print(data.shape)
+print(times.shape)
+data, times = raw[2:20:3, start:stop]  # access underlying data
+raw.plot()
+
+
+
+
+
+
+
+
+
+
+
 mne_dir = os.path.join('Volumes','ALEX_EXT', 'iEEG', 'PreDCN')
 data_dir = os.path.join(mne_dir,'S01')
 print(data_dir)
