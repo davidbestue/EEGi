@@ -43,8 +43,6 @@ raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, n
 print(raw.info)
 
 
-
-
 #raw.crop(570, 3740) 
 #raw.resample(1000, npad='auto')
 
