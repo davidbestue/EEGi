@@ -21,6 +21,10 @@ raw = mne.io.read_raw_edf(edf_path).crop(570, 600).load_data().resample(1000, np
 print(raw.info)
 
 
+data, times = raw[2:20:3]  # access underlying data
+raw.plot()
+raw.plot() ## plotear los diferentes canales
+
 
 df = pd.DataFrame(raw.get_data().transpose()) 
 df = np.around(df, decimals = 4)
@@ -80,6 +84,7 @@ data = data * -10000 # make decima
 
 plt.plot(times, data.T)
 plt.title('Sample channels')
+plt.show()
 
 
 # I have to update the trigger channel with the reformated units
