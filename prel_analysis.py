@@ -6,8 +6,12 @@ from mne.datasets import eegbci
 from mne_bids import write_raw_bids, make_bids_basename
 from mne_bids.utils import print_dir_tree
 
+####
+
 import mne
 import os
+import numpy as np     
+import pandas as pd
 
 root = os.path.normpath(os.getcwd() + 3*( os.sep + os.pardir ) ) 												# root 3 directories back
 edf_path = os.path.join( root , 'Downloads', 'X_ X_9601c6f8-0928-4fca-bb4c-d809d2efa86d.EDF')					# path of edf file
@@ -18,8 +22,7 @@ print(raw.info)
 
 
 
-import numpy as np     
-import pandas as pd
+
 df = pd.DataFrame(raw.get_data().transpose()) 
 df.columns = raw.ch_names
 
