@@ -27,12 +27,6 @@ raw.plot()
 
 
 
-
-
-
-
-
-
 mne_dir = os.path.join('Volumes','ALEX_EXT', 'iEEG', 'PreDCN')
 data_dir = os.path.join(mne_dir,'S01')
 print(data_dir)
