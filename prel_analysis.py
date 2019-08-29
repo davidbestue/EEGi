@@ -22,8 +22,8 @@ print(raw.info)
 
 
 
-
 df = pd.DataFrame(raw.get_data().transpose()) 
+df = np.around(df, decimals = 4)
 df.columns = raw.ch_names
 
 
