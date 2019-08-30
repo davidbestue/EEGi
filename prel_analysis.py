@@ -19,16 +19,22 @@ edf_path = os.path.join( root , 'Downloads', 'X_ X_9601c6f8-0928-4fca-bb4c-d809d
 raw = mne.io.read_raw_edf(edf_path).crop(570, 600).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 #raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 print(raw.info)
-
-
-data, times = raw[2:20:3]  # access underlying data
-raw.plot()
 raw.plot() ## plotear los diferentes canales
-
 
 df = pd.DataFrame(raw.get_data().transpose()) 
 df = np.around(df, decimals = 4)
 df.columns = raw.ch_names
+
+#### Mark the worng channels based on the wrong activity (mark if they are flat.)
+
+
+
+#### Now I have to process the data
+# start preprocessin with the function of mne mn.filter (before merging with the triggers)
+data, times = raw[2:20:3]  # access underlying data
+
+
+
 
 
 start, stop = raw.time_as_index([100, 200])  # 100 s to 115 s data segment
