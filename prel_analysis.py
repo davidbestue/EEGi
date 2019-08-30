@@ -7,7 +7,6 @@ from mne_bids import write_raw_bids, make_bids_basename
 from mne_bids.utils import print_dir_tree
 
 ####
-
 import mne
 import os
 import numpy as np     
