@@ -25,8 +25,8 @@ df = np.around(df, decimals = 4)
 df.columns = raw.ch_names
 
 #### Mark the worng channels based on the wrong activity (mark if they are flat.)
-
-
+###
+###
 ### interaccion meme - genes? --> miedo a las serpientes (no somos una tabla rasa a la que se añaden memes o no somos una tabla rasa)
 ### la moralidad es exclusivamente humana? monos tienen una escala de valores? esta jerarquia de valores es un meme o al igual que la jerarquia social se ha instalado en la genetica?
 ### la variabilidad de las jerarquias de valores y su complejidad nos da alguna pista? hay monos con jerarquias de valores distintas
@@ -40,6 +40,17 @@ df.columns = raw.ch_names
 ### son las jerarquias una interaccion gen-meme?? como un sistema que traquea tu posicion en la jerarquia ha evolucionado? 
 ### cual es la ventaja evolutiva de eso? -> util para no meterme en lios con los demas: si no era capaz de taquear donde estoy socialmente tal vez pienso que la comida de uno es mia y me da una tunda
 ### 
+### better to be agreable? --> agreableness es una buena estrategia a corto plazo pero no a largo plazo. A los pliticas de hoy son muy "agreable" y muy buenos en compasion pero esas nos son necesariamente las politicas inteligentes para una sociedad adulta (ej. open arms)
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###
 
 #### Now I have to process the data
 # start preprocessin with the function of mne mn.filter (before merging with the triggers)
