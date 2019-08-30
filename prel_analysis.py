@@ -42,13 +42,10 @@ df.columns = raw.ch_names
 ### 
 ### better to be agreable? --> agreableness es una buena estrategia a corto plazo pero no a largo plazo. A los pliticas de hoy son muy "agreable" y muy buenos en compasion pero esas nos son necesariamente las politicas inteligentes para una sociedad adulta (ej. open arms)
 ###
+### religion y ciencia no son crotarios! ojo con eso
 ###
 ###
-###
-###
-###
-###
-###
+### pattern of behaviour grounded in biology. archetivo seria un meme adaptado (archetipo de dominance) lo interesant aqui es es que es dominancia en cualquier jerarquia (es en cualquiera es abstracto)
 ###
 ###
 
@@ -84,7 +81,6 @@ print(raw.info
 #loading and cropping data for this experiment
 raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 print(raw.info)
-
 
 #raw.crop(570, 3740) 
 #raw.resample(1000, npad='auto')
