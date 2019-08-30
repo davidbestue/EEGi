@@ -33,6 +33,7 @@ df.columns = raw.ch_names
 ### la variabilidad de las jerarquias de valores y su complejidad nos da alguna pista? hay monos con jerarquias de valores distintas
 ### objetivos vitales son memes o hay interaccion meme-gen? es genetica la voluntad de querer pasar tus conocimientos --> vinculado a escalr en la jerarquia social?
 ### la regla de oro es un meme? los monos la tienen "empatia es un meme? no! hay psicopatas y un correlato neuronal de empatia"
+### los leones matan a los hijos previos de su pareja "buena estrategia para perpetuar los genes" --> por que los hombre no? --> empatia?
 ### un psicopata tiene el meme de que lo que hace esta mal pero no tiene "la genética" que se lo hace sentir (no tienen empatia)
 ### somos los unicos animales con cultura?? cultura es un continuo (estrategia para cazar leones es cultura) y humanos hemos sido capaces de poder mantenerla y transmitirla mejor (libros, lenguaje)
 ### cultura es aprendizaje? hay algun momento que se mezclan? que un meme está tan extendido que pasa a formar parte de la genética? (miedo serpientes?? --> en 10000 años habrá un miedo instintivo a las pistolas?)
@@ -41,14 +42,9 @@ df.columns = raw.ch_names
 ### cual es la ventaja evolutiva de eso? -> util para no meterme en lios con los demas: si no era capaz de taquear donde estoy socialmente tal vez pienso que la comida de uno es mia y me da una tunda
 ### 
 
-
 #### Now I have to process the data
 # start preprocessin with the function of mne mn.filter (before merging with the triggers)
 data, times = raw[2:20:3]  # access underlying data
-
-
-
-
 
 start, stop = raw.time_as_index([100, 200])  # 100 s to 115 s data segment
 data, times = raw[:, start:stop]
@@ -56,9 +52,6 @@ print(data.shape)
 print(times.shape)
 data, times = raw[2:20:3, start:stop]  # access underlying data
 raw.plot()
-
-
-
 
 
 mne_dir = os.path.join('Volumes','ALEX_EXT', 'iEEG', 'PreDCN')
