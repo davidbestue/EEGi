@@ -28,6 +28,19 @@ df.columns = raw.ch_names
 #### Mark the worng channels based on the wrong activity (mark if they are flat.)
 
 
+### interaccion meme - genes? --> miedo a las serpientes (no somos una tabla rasa a la que se añaden memes o no somos una tabla rasa)
+### la moralidad es exclusivamente humana? monos tienen una escala de valores? esta jerarquia de valores es un meme o al igual que la jerarquia social se ha instalado en la genetica?
+### la variabilidad de las jerarquias de valores y su complejidad nos da alguna pista? hay monos con jerarquias de valores distintas
+### objetivos vitales son memes o hay interaccion meme-gen? es genetica la voluntad de querer pasar tus conocimientos --> vinculado a escalr en la jerarquia social?
+### la regla de oro es un meme? los monos la tienen "empatia es un meme? no! hay psicopatas y un correlato neuronal de empatia"
+### un psicopata tiene el meme de que lo que hace esta mal pero no tiene "la genética" que se lo hace sentir (no tienen empatia)
+### somos los unicos animales con cultura?? cultura es un continuo (estrategia para cazar leones es cultura) y humanos hemos sido capaces de poder mantenerla y transmitirla mejor (libros, lenguaje)
+### cultura es aprendizaje? hay algun momento que se mezclan? que un meme está tan extendido que pasa a formar parte de la genética? (miedo serpientes?? --> en 10000 años habrá un miedo instintivo a las pistolas?)
+### hay un punto en el que un "meme" es tan fuerte que pasa a formar parte de nuestro sistema?
+### son las jerarquias una interaccion gen-meme?? como un sistema que traquea tu posicion en la jerarquia ha evolucionado? 
+### cual es la ventaja evolutiva de eso? -> util para no meterme en lios con los demas: si no era capaz de taquear donde estoy socialmente tal vez pienso que la comida de uno es mia y me da una tunda
+### 
+
 
 #### Now I have to process the data
 # start preprocessin with the function of mne mn.filter (before merging with the triggers)
