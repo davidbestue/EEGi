@@ -117,8 +117,9 @@ def fixation_circle():
 
 #### Eye traker
 from pygaze import display
-from pygaze import expdisplay
+#from pygaze import expdisplay
 from pygaze import eyetracker
+from pygaze._eyetracker.pytribe import * 
 
 eyetra = True
 if eyetra == True:
