@@ -12,10 +12,10 @@ import os
 import numpy as np     
 import pandas as pd
 
-root = os.path.normpath(os.getcwd() + 3*( os.sep + os.pardir ) ) 												# root 3 directories back
-edf_path = os.path.join( root , 'Downloads', 'X_ X_9601c6f8-0928-4fca-bb4c-d809d2efa86d.EDF')					# path of edf file
+root = os.path.normpath(os.getcwd() + 3*( os.sep + os.pardir ) )                                                # root 3 directories back
+edf_path = os.path.join( root , 'Downloads', 'X_ X_9601c6f8-0928-4fca-bb4c-d809d2efa86d.EDF')                   # path of edf file
 
-raw = mne.io.read_raw_edf(edf_path).crop(570, 600).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
+raw = mne.io.read_raw_edf(edf_path).crop(570, 770).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 #raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 print(raw.info)
 raw.plot() ## plotear los diferentes canales
@@ -26,6 +26,16 @@ df.columns = raw.ch_names
 
 #### Mark the worng channels based on the wrong activity (mark if they are flat.)
 ###
+
+events = mne.find_events(raw)  
+
+
+
+
+
+
+
+
 ###
 ### interaccion meme - genes? --> miedo a las serpientes (no somos una tabla rasa a la que se añaden memes o no somos una tabla rasa)
 ### la moralidad es exclusivamente humana? monos tienen una escala de valores? esta jerarquia de valores es un meme o al igual que la jerarquia social se ha instalado en la genetica?
@@ -72,12 +82,11 @@ edf_path = os.path.join(data_dir,'X_ X_9601c6f8-0928-4fca-bb4c-d809d2efa86d.EDF'
 print(edf_path)
 
 
-raw = mne.io.read_raw_edf(edf_path).crop(570, 600).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
-print(raw.info
+raw = mne.io.read_raw_edf(edf_path).crop(570, 800).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
+print(raw.info)
 
 
 #raw = mne.io.read_raw_edf(edf_path, preload=False) # , stim_channel="TRIG"
-
 #loading and cropping data for this experiment
 raw = mne.io.read_raw_edf(edf_path).crop(570, 3740).load_data().resample(1000, npad='auto') # , stim_channel="TRIG"
 print(raw.info)
