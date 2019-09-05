@@ -31,11 +31,6 @@ events = mne.find_events(raw)
 
 
 
-
-
-
-
-
 ###
 ### interaccion meme - genes? --> miedo a las serpientes (no somos una tabla rasa a la que se añaden memes o no somos una tabla rasa)
 ### la moralidad es exclusivamente humana? monos tienen una escala de valores? esta jerarquia de valores es un meme o al igual que la jerarquia social se ha instalado en la genetica?
