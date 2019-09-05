@@ -140,13 +140,18 @@ if eyetra == True:
     disp = pygaze.display.Display(disptype='psychopy',units='pix')
     win = pygaze.expdisplay
     win.monitor.setSizePix((1600,900))
-    tracker = pygaze.eyetracker.EyeTracker(disp,trackertype=pygaze.settings.TRACKERTYPE)
+    tracker = pygaze.eyetracker.EyeTracker(disp, trackertype=pygaze.settings.TRACKERTYPE)
     tracker.start_recording()    
     tracker.calibrate()
 
 
 
 
+disp = pygaze.display.Display(disptype='psychopy',units='pix')
+win = pygaze.expdisplay
+win.monitor.setSizePix((1600,900))
+tracker = pygaze.eyetracker.EyeTracker(disp, trackertype=pygaze.settings.TRACKERTYPE)
+tracker.start_recording()   
 
 
 #### start the trigger
