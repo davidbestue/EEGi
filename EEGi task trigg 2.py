@@ -3,7 +3,7 @@
 Created on Tue Jul 30 17:50:00 2019
 @author: David Bestue
 """
-#To run this code you have to run in a Terminal  "python WM task.py 'name and session' " Open a terminal and move to the path this script
+#To run this code you have to run in a Terminal  "name of file.py 'name and session' " Open a terminal and move to the path this script
 #Requires 1 directory:  results
 
  
@@ -114,7 +114,7 @@ def fixation_circle():
 
 
 #### start the trigger
-sst=False
+sst=True
 if sst:
     p_port = serial.Serial('COM3', 115200, timeout=0)
     p_port.write(b'00')
