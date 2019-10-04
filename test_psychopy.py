@@ -123,23 +123,26 @@ if sst:
     p_port.write(b'RR')
 
 
-## Subject name and session (open a box)
-myDlg = gui.Dlg(title="Memoy Experiment")
-myDlg.addText('Subject info')
-myDlg.addField('Name:')
-#myDlg.addField('Age:', 21)
-myDlg.addText('Experiment Info')
-#myDlg.addField('Grating Ori:',45)
-myDlg.addField('Training:', choices=["No", "Yes"])
-ok_data = myDlg.show()  # show dialog and wait for OK or Cancel
-if myDlg.OK:  # or if ok_data is not None
-    name= ok_data[0]
-    training = ok_data[1]
-else:
-    print('user cancelled')
+# ## Subject name and session (open a box)
+# myDlg = gui.Dlg(title="Memoy Experiment")
+# myDlg.addText('Subject info')
+# myDlg.addField('Name:')
+# #myDlg.addField('Age:', 21)
+# myDlg.addText('Experiment Info')
+# #myDlg.addField('Grating Ori:',45)
+# myDlg.addField('Training:', choices=["No", "Yes"])
+# ok_data = myDlg.show()  # show dialog and wait for OK or Cancel
+# if myDlg.OK:  # or if ok_data is not None
+#     name= ok_data[0]
+#     training = ok_data[1]
+# else:
+#     print('user cancelled')
 
 
 
+
+name='Tiffany'
+training='No'
 session=1
 filename =  name + '_' + str(session) + '.xlsx'
 
