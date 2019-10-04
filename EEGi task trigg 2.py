@@ -115,7 +115,7 @@ def fixation_circle():
 
 
 #### start the trigger
-sst=True
+sst=False
 if sst:
     p_port = serial.Serial('COM3', 115200, timeout=0)
     p_port.write(b'00')
@@ -293,8 +293,8 @@ for i in range(0,len(stimList)):
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
             CUE.draw();
             presentation_att_cue_time=  win.flip()
-            p_port.write(b'01') if sst == True else print('no trigger for cue') ## presentation of the cue.
-            p_port.write(b'00') if sst == True else print('')
+            #p_port.write(b'01') if sst == True else print('no trigger for cue') ## presentation of the cue.
+            #p_port.write(b'00') if sst == True else print('')
         else:
             CUE=visual.TextStim(win=win, text= str(order), pos=[0,0], color=[1,1,1], units='pix', height=length/10)        
             CUE.draw();
