@@ -236,6 +236,11 @@ disp_text()
 TIME = core.Clock(); #overall time
 TIME.reset();
 
+#### El carterista
+#### Efecto: el mago explica al espectador como roba un carteriast. Lo hace una primera vez a camara lenta y despues a camara rapida. Finalmente, el espectador
+#### debe llevara  cabo un robo, en el que falla pero se encuntra la carta dentro de su propia cartera
+
+
 p_port.write(b'11') #start trials
 p_port.write(b'00')
 
