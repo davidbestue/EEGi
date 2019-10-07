@@ -243,8 +243,9 @@ TIME.reset();
 #### Metodo a grandes rasgos: primera fase: forzaje del 7, lo mezclan, cortas por burbuja para que este en top y solapa, robas y la pones en himler
 #### segunda fase: cambio en himler y la pones en medio tapando el indice
 #### tercera fase: empalme (riffle shuffle), cambio de carteras, la dejas en el bolsillo y la intoduces al guardar la del espectador, esp falla, rev final
- 
 
+
+##Trigger of the beginning of the task
 
 p_port.write(b'11') #start trials
 p_port.write(b'00')
