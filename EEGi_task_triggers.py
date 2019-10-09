@@ -245,7 +245,6 @@ TIME.reset();
 #### tercera fase: empalme (riffle shuffle), cambio de carteras, la dejas en el bolsillo y la intoduces al guardar la del espectador, esp falla, rev final
 
 
-
 #### Giving people information that you know to be incorrect about the physical world is morally wrong
 
 
