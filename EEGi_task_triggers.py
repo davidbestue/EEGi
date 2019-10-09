@@ -246,7 +246,6 @@ TIME.reset();
 
 
 ##Trigger of the beginning of the task
-
 p_port.write(b'11') #start trials
 p_port.write(b'00')
 
