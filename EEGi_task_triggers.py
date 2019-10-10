@@ -231,12 +231,9 @@ Start_text=visual.TextStim(win=win, text='Tras pulsar "space", mire y mueva el r
 disp_text()  
 
 
-
 #TRIGGER####################################################################################################################### start experiment (0)
 TIME = core.Clock(); #overall time
 TIME.reset();
-
-#### Giving people information that you know to be incorrect about the physical world is morally wrong
 
 ## 
 ##Trigger of the beginning of the task
