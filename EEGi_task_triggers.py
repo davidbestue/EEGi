@@ -236,17 +236,9 @@ disp_text()
 TIME = core.Clock(); #overall time
 TIME.reset();
 
-#### El carterista
-#### Efecto: el mago explica al espectador como roba un carteriast. Lo hace una primera vez a camara lenta y despues a camara rapida. Finalmente, el espectador
-#### debe llevara  cabo un robo, en el que falla pero se encuntra la carta dentro de su propia cartera
-#### Material: baraja con burbuja en un 7, himler con un 8 en el lado largo de una.
-#### Metodo a grandes rasgos: primera fase: forzaje del 7, lo mezclan, cortas por burbuja para que este en top y solapa, robas y la pones en himler
-#### segunda fase: cambio en himler y la pones en medio tapando el indice
-#### tercera fase: empalme (riffle shuffle), cambio de carteras, la dejas en el bolsillo y la intoduces al guardar la del espectador, esp falla, rev final
-
 #### Giving people information that you know to be incorrect about the physical world is morally wrong
 
-
+## 
 ##Trigger of the beginning of the task
 p_port.write(b'11') #start trials
 p_port.write(b'00')
